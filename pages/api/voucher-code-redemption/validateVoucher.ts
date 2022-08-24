@@ -7,6 +7,8 @@ const customer = {
   source_id: "test_customer_id_1",
 };
 
+//look
+
 type RequestedItem = {
   sku_id: string,
   productName: string,
