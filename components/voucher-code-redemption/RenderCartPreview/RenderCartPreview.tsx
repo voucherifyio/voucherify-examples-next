@@ -1,24 +1,40 @@
 import styles from "./RenderCartPreview.module.css";
 import Image from "next/image";
 import { EachProduct } from "../../../pages/voucher-code-redemption/types";
+import { VoucherProperties } from "../RenderOrderSummary/types";
 
 type Props = {
   currentProducts: EachProduct[];
-  setCurrentProducts: (x: EachProduct[]) => void;
+  setCurrentProducts: (products: EachProduct[]) => void;
+  setVoucherCodeValue: (voucherCodeValue: string) => void;
+  voucherProperties: VoucherProperties;
+  validateVoucher: (
+    voucherCodeValue: string,
+    currentProducts: EachProduct[]
+  ) => unknown;
 };
 
-const RenderCartPreview = ({ currentProducts, setCurrentProducts }: Props) => {
+const RenderCartPreview = ({
+  currentProducts,
+  setCurrentProducts,
+  voucherProperties,
+  validateVoucher,
+}: Props) => {
   const products = [...currentProducts];
 
   const incrementQuantity = (index: number) => {
     products[index].quantity++;
     setCurrentProducts(products);
+    voucherProperties?.code &&
+      validateVoucher(voucherProperties.code, currentProducts);
   };
 
   const decrementQuantity = (index: number) => {
     if (currentProducts[index].quantity <= 0) return;
     products[index].quantity--;
     setCurrentProducts(products);
+    voucherProperties?.code &&
+      validateVoucher(voucherProperties.code, currentProducts);
   };
 
   return (
@@ -27,7 +43,10 @@ const RenderCartPreview = ({ currentProducts, setCurrentProducts }: Props) => {
       <div className={styles.cartSummaryList}>
         {currentProducts.map((product, index) => {
           return (
-            <div className={styles.productItem} key={product.id}>
+            <div
+              className={styles.productItem}
+              key={`${product.id}-${product.quantity}`}
+            >
               <Image
                 src={product.src}
                 alt="Product image"
