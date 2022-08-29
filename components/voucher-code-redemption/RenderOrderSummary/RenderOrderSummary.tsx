@@ -3,48 +3,52 @@ import Image from "next/image";
 import { sumTotalPrice } from "../../../utils/sumTotalPrice";
 import { EachProduct } from "../../../pages/voucher-code-redemption/types";
 import { ChangeEvent, useState } from "react";
+import { VoucherProperties } from "./types";
+import { useRouter } from "next/router";
+import { saveCartAndVoucherInSessionStorage } from "../../../utils/localStorage";
 
 type Props = {
   currentProducts: EachProduct[];
+  setVoucherCodeValue: (voucherCodeValue: string) => void;
+  voucherCodeValue: string;
+  setVoucherProperties: (voucherProperties: VoucherProperties) => void;
+  voucherProperties: VoucherProperties;
+  setError: (error: string) => void;
+  error: string;
+  setInputError: (inputError: string) => void;
+  inputError: string;
+  validateVoucher: (
+    voucherCodeValue: string,
+    currentProducts: EachProduct[]
+  ) => unknown;
 };
 
-const RenderOrderSummary = ({ currentProducts }: Props) => {
-  const [voucherCode, setVoucherCode] = useState<string>();
+const RenderOrderSummary = ({
+  currentProducts,
+  setVoucherCodeValue,
+  voucherCodeValue,
+  setVoucherProperties,
+  voucherProperties,
+  setError,
+  error,
+  setInputError,
+  inputError,
+  validateVoucher,
+}: Props) => {
+  const router = useRouter();
 
-  const getValue = (e: ChangeEvent) => {
-    setVoucherCode((e.target as HTMLInputElement).value);
+  const getInputValue = (e: ChangeEvent) => {
+    setVoucherCodeValue((e.target as HTMLInputElement).value);
   };
 
-  const filterZeroQuantityProducts = (currentProducts: EachProduct[]) => {
-    const filteredProducts = currentProducts
-      .filter((product) => product.quantity !== 0)
-      .map((product) => {
-        return { id: product.id, quantity: product.quantity };
-      });
-    return { filteredProducts };
-  };
-
-  const validateVoucher = async (
-    voucherCode: string,
+  const sumTotalPriceWithDiscount = (
+    voucherProperties: VoucherProperties,
     currentProducts: EachProduct[]
   ) => {
-    const { filteredProducts } = filterZeroQuantityProducts(currentProducts);
-    console.log(filteredProducts);
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_BACKEND_URL +
-        `/api/voucher-code-redemption/validateVoucher`,
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ voucherCode, filteredProducts }),
-      }
-    );
-    const data = response.json();
-    console.log(data);
-    return data;
+    const promotions = voucherProperties?.discount / 100 || 0;
+    const totalPrice = sumTotalPrice(currentProducts);
+    const totalPriceWithDiscount = parseFloat(totalPrice) - promotions;
+    return totalPriceWithDiscount <= 0 ? 0 : totalPriceWithDiscount;
   };
 
   return (
@@ -66,15 +70,24 @@ const RenderOrderSummary = ({ currentProducts }: Props) => {
           <form
             className={styles.voucherCodeForm}
             onSubmit={(e) => {
+              if (currentProducts.reduce((a, b) => a + b.quantity, 0) <= 0) {
+                alert("Please add items to basket")
+              }
+              if (!voucherCodeValue) {
+                e.preventDefault();
+                setInputError("Please enter voucher code");
+                return false;
+              }
               e.preventDefault();
-              validateVoucher(voucherCode as string, currentProducts);
+              validateVoucher(voucherCodeValue as string, currentProducts);
             }}
           >
             <input
               type="text"
               placeholder="Enter your code"
               id={styles.voucherCode}
-              onChange={(e) => getValue(e)}
+              value={voucherCodeValue}
+              onChange={(e) => getInputValue(e)}
             />
             <button id={styles.checkVoucherCode}>
               <Image
@@ -87,22 +100,61 @@ const RenderOrderSummary = ({ currentProducts }: Props) => {
           </form>
         </div>
         <div className={styles.voucherFormErrorWrapper}>
-          <p></p>
+          <p>{inputError}</p>
         </div>
         <div className={styles.promotionsWrapper}>
           <h4>Promotions:</h4>
-          <div className={styles.promotionHolder}></div>
-          <div className={styles.promotionError}></div>
+          {voucherProperties?.code && (
+            <div className={styles.promotionHolder}>
+              <h5>{voucherProperties?.code}</h5>
+              <div>{`${voucherProperties.discount ? `$${(voucherProperties?.discount / 100).toFixed(2)}` : "Free shipping"}`}</div>
+            </div>
+          )}
+          {error && (
+            <div className={styles.promotionError}>
+              <h5>{error}</h5>
+            </div>
+          )}
         </div>
         <h4 className={styles.discountPriceHolder}>
-          All Your Discounts:<span id={styles.allDiscounts}>n/a</span>
+          All Your Discounts:
+          <span id={styles.allDiscounts}>{`${
+            voucherProperties?.discount
+              ? `$${(voucherProperties.discount / 100).toFixed(2)}`
+              : "n/a"
+          }`}</span>
         </h4>
         <h4>
           Grand total:
-          <span id={styles.grandTotal}>${sumTotalPrice(currentProducts)}</span>
+          <span id={styles.grandTotal}>
+            $
+            {sumTotalPriceWithDiscount(
+              voucherProperties as VoucherProperties,
+              currentProducts
+            ).toFixed(2)}
+          </span>
         </h4>
       </div>
-      <button id={styles.checkoutButton}>Checkout</button>
+      <button
+        id={styles.checkoutButton}
+        onClick={(e) => {
+          if (
+            !voucherProperties?.code ||
+            currentProducts.reduce((a, b) => a + b.quantity, 0) <= 0
+          ) {
+            e.preventDefault();
+            alert("Please validate voucher code or add items to basket");
+            return false;
+          }
+          saveCartAndVoucherInSessionStorage(
+            voucherProperties as VoucherProperties,
+            currentProducts
+          );
+          router.push("/voucher-code-redemption/Checkout");
+        }}
+      >
+        Checkout
+      </button>
     </div>
   );
 };
