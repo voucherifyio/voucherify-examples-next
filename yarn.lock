@@ -181,10 +181,10 @@
     "@typescript-eslint/types" "5.33.1"
     "eslint-visitor-keys" "^3.3.0"
 
-"@voucherify/sdk@^2.0.11":
-  "integrity" "sha512-L17YQTI4TCEAHrFqncEUsfRja5TtzFqB2YDiA3s8jsIHzTKh6Uq7t06gTVbNzU4jpNfoEiyD3Pk0o5V1hsB4Kg=="
-  "resolved" "https://registry.npmjs.org/@voucherify/sdk/-/sdk-2.0.11.tgz"
-  "version" "2.0.11"
+"@voucherify/sdk@^2.0.12":
+  "integrity" "sha512-FVp5qnpz0PytoI98SroKXXEgQtSFfwI17DeoEnKbn8tgI+FROs0GHN0UYlTLdipvV7CF7Zv+6MHDADsqAUPLEg=="
+  "resolved" "https://registry.npmjs.org/@voucherify/sdk/-/sdk-2.0.12.tgz"
+  "version" "2.0.12"
   dependencies:
     "axios" "0.21.2"
     "qs" "6.9.6"

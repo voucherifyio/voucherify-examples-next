@@ -5,8 +5,7 @@ import { mapCartItemToVoucherifyItem } from "../../../utils/mapCartItemToVoucher
 import { validateRequestedCart } from "../../../utils/validateRequestedCart";
 import { client } from "../voucherifyClient";
 
-//@ts-ignore: customer dont need "id" for validate/redeem voucher
-const customer: SimpleCustomer = {
+const customer: Omit<SimpleCustomer, "id"> = {
   object: "customer",
   source_id: "test_customer_id_1",
 };
