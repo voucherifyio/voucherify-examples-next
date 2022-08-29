@@ -124,9 +124,51 @@
     width: 100%;
 }
 
+.promotionHolder h5 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border: 1px solid #213473;
+    border-radius: 5px;
+    background-color: #d5d9e7;
+    margin-block-start: 1.67em;
+    margin-block-end: 1.67em;
+}
+
+.promotionHolder h5::before {
+    content: "";
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    background-image: url("/shopping_cart.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 10px;
+}
+
+.promotionHolder > div {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--green);
+}
+
 .promotionError {
     display: flex;
     align-items: center;
+}
+
+.promotionError h5 {
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: #f0c4c4;
+    border: 1px solid #732121;
+    font-weight: 500;
 }
 
 .discountPriceHolder {

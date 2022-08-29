@@ -4,6 +4,14 @@
     min-height: 100vh;
 }
 
+.checkoutPageWrapper {
+    display: flex;
+    background-color: var(--white);
+    width: 100%;
+    min-height: 100vh;
+    color: #001246;
+}
+
 .pageWrapper h2 {
     text-align: center;
     margin: 0.83em 0;

@@ -1,0 +1,39 @@
+.summedProducts {
+    width: 100%;
+    min-height: 320px;
+    height: auto;
+    border-bottom: 1px solid #B1B8D0;
+}
+
+.eachProduct {
+    display: flex;
+    width: 100%;
+    height: 80px;
+    margin-bottom: 30px;
+}
+
+.eachProductName {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex: 1;
+    width: 395px;
+    height: 100%;
+    padding-left: 15px;
+    color: black;
+}
+
+.eachProductName h6 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    height: 24px;
+}
+
+.eachProductName p {
+    font-size: 12px;
+}
+
+.eachProductName span {
+    color: black;
+}

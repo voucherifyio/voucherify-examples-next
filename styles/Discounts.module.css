@@ -1,0 +1,79 @@
+.discounts {
+    width: 100%;
+    height: auto;
+    color: black;
+}
+
+.discounts h5 {
+    margin: 32px 0 30px;
+}
+
+.discountTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 34px;
+    margin-top: 30px;
+}
+
+.voucher {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: 36px;
+    padding: 8px 20px;
+    background-color: #D5D9E7;
+    border: 1px solid #213473;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.voucher::before {
+    display: inline-block;
+    content: "";
+    background-image: url(/local_offer.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+.voucher span {
+    font-weight: 600;
+}
+
+.valueProp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #B1B8D0;
+}
+
+.valueProp span,
+.allDiscounts span {
+    color: var(--green);
+}
+
+.summedPrices {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.subtotal,
+.allDiscounts,
+.shipping,
+.grandTotal {
+    display: flex;
+    justify-content: space-between;
+}
+
+.shipping {
+    padding-bottom: 30px;
+    border-bottom: 1px solid #B1B8D0;
+}
