@@ -95,8 +95,8 @@ const Cart = ({ products }: Products) => {
     );
     const data = await response.json();
     if (response.status !== 200) {
-      setVoucherCodeValue("");
       setError(data.message);
+      setVoucherCodeValue("");
       return;
     }
     if (data?.redeemables) {
@@ -135,7 +135,6 @@ const Cart = ({ products }: Products) => {
             setCurrentProducts={setCurrentProducts}
             validatePromotionTier={validatePromotionTier}
             redeemables={redeemables}
-            voucherCodeValue={voucherCodeValue}
             isActive={isActive}
           />
           <RenderOrderSummary

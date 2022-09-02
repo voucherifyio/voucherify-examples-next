@@ -33,10 +33,11 @@ const RenderOrderSummary = ({
   setInputError,
   inputError,
   validatePromotionTier,
-  redeemables,
+  redeemables
 }: Props) => {
-  console.log(vouchersProperties);
+
   const router = useRouter();
+
   const getInputValue = (e: ChangeEvent) => {
     setVoucherCodeValue((e.target as HTMLInputElement).value);
   };
