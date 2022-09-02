@@ -19,7 +19,6 @@ export default async function handler(
         order: { amount: calculateCartTotalAmount(items) },
       });
       const hotPromotion = promotions?.filter((voucher) =>
-      //@ts-ignore
         voucher.name.startsWith("Hot Promotion")
       );
       return res.status(200).json(hotPromotion);
