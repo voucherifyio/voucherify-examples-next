@@ -1,8 +1,8 @@
-import styles from "./FormPreview.module.css";
+import styles from "../../../styles/FormPreview/FormPreview.module.css";
 import Image from "next/image";
-import CheckoutNavButtons from "../voucher-code-redemption/CheckoutNavButtons/CheckoutNavButtons";
-import { EachProduct } from "../../pages/voucher-code-redemption/types";
-import { VoucherProperties } from "../voucher-code-redemption/RenderOrderSummary/types";
+import CheckoutNavButtons from "../CheckoutNavButtons/CheckoutNavButtons";
+import { EachProduct } from "../../../pages/types";
+import { VoucherProperties } from "../RenderOrderSummary/types";
 
 type Props = {
   products: EachProduct[];
