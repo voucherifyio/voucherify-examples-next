@@ -1,4 +1,4 @@
-import { EachProduct } from "../pages/voucher-code-redemption/types";
+import { EachProduct } from "../pages/types";
 
 export const filterZeroQuantityProducts = (currentProducts: EachProduct[]) => {
   const filteredProducts = currentProducts
