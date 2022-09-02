@@ -1,7 +1,7 @@
-import styles from "../../FormPreview/FormPreview.module.css";
+import styles from "../../../styles/FormPreview/FormPreview.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import { EachProduct } from "../../../pages/voucher-code-redemption/types";
+import { EachProduct } from "../../../pages/types";
 import { VoucherProperties } from "../RenderOrderSummary/types";
 import { filterZeroQuantityProducts } from "../../../utils/filterZeroQuantityProducts";
 import { useState } from "react";

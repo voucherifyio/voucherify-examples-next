@@ -1,11 +1,11 @@
-import styles from "./RenderOrderSummary.module.css";
+import styles from "../../../styles/RenderOrderSummary/RenderOrderSummary.module.css";
 import Image from "next/image";
 import { sumTotalPrice } from "../../../utils/sumTotalPrice";
-import { EachProduct } from "../../../pages/voucher-code-redemption/types";
+import { EachProduct } from "../../../pages/types";
 import { ChangeEvent, useState } from "react";
 import { VoucherProperties } from "./types";
 import { useRouter } from "next/router";
-import { saveCartAndVoucherInSessionStorage } from "../../../utils/localStorage";
+import { saveCartAndVoucherInSessionStorage } from "../../../utils/voucher-code-redemption/sessionStorage";
 
 type Props = {
   currentProducts: EachProduct[];

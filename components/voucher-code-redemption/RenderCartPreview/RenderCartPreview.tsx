@@ -1,6 +1,6 @@
-import styles from "./RenderCartPreview.module.css";
+import styles from "../../../styles/RenderCartPreview/RenderCartPreview.module.css";
 import Image from "next/image";
-import { EachProduct } from "../../../pages/voucher-code-redemption/types";
+import { EachProduct } from "../../../pages/types";
 import { VoucherProperties } from "../RenderOrderSummary/types";
 
 type Props = {
