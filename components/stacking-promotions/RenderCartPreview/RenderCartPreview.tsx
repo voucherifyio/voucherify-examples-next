@@ -11,7 +11,6 @@ type Props = {
     redeemables: Voucher[]
   ) => unknown;
   redeemables: Voucher[];
-  voucherCodeValue: string;
   isActive: boolean;
 };
 
@@ -20,22 +19,21 @@ const RenderCartPreview = ({
   setCurrentProducts,
   validatePromotionTier,
   redeemables,
-  voucherCodeValue,
-  isActive
+  isActive,
 }: Props) => {
   const products = [...currentProducts];
 
   const incrementQuantity = (index: number) => {
     products[index].quantity++;
     setCurrentProducts(products);
-    validatePromotionTier(currentProducts, voucherCodeValue, redeemables);
+    validatePromotionTier(currentProducts, "", redeemables);
   };
 
   const decrementQuantity = (index: number) => {
     if (currentProducts[index].quantity <= 0) return;
     products[index].quantity--;
     setCurrentProducts(products);
-    validatePromotionTier(currentProducts, voucherCodeValue, redeemables);
+    validatePromotionTier(currentProducts, "", redeemables);
   };
 
   return (
