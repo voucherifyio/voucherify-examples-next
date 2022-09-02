@@ -17,10 +17,6 @@ export const validateRequestedCart = (
   productName: string;
   productDescription: string;
 }[] => {
-  if (!requestedCart?.length) {
-    throw new Error("Requested cart should be an array of cart items");
-  }
-
   const validatedCart = [];
   for (const requestedItem of requestedCart) {
     const item = defaultProducts.find(
@@ -29,7 +25,6 @@ export const validateRequestedCart = (
     if (item?.id) {
       validatedCart.push({ ...item, quantity: requestedItem.quantity || 0 });
     }
-
   }
   return validatedCart;
 };
