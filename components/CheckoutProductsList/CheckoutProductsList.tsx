@@ -1,11 +1,11 @@
-import { Products } from "../../pages/voucher-code-redemption/types";
+import { Products } from "../../pages/types";
 import styles from "./CheckoutProductsList.module.css";
 import Image from "next/image";
 
 const CheckoutProductsList = ({ products }: Products) => {
   return (
     <div className={styles.summedProducts}>
-      {products.map((product) => {
+      {products?.map((product) => {
         return (
           <div key={product.id} className={styles.eachProduct}>
             <Image src={product.src} alt="" width={80} height={80} />
