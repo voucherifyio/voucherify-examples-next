@@ -134,7 +134,7 @@
     border: 1px solid #213473;
     border-radius: 5px;
     background-color: #d5d9e7;
-    margin-block-start: 1.67em;
+    /* margin-block-start: 1.67em; */
     margin-block-end: 1.67em;
 }
 
