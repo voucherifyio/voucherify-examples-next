@@ -3,12 +3,12 @@ import Nav from "../../components/Nav/Nav";
 import Link from "next/link";
 import { MetaProperties } from "../../components/MetaProperties/Meta";
 import RenderCartPreview from "../../components/voucher-code-redemption/RenderCartPreview/RenderCartPreview";
-import { EachProduct, Products } from "./types";
+import { EachProduct, Products } from "../types";
 import { GetStaticProps } from "next";
 import RenderOrderSummary from "../../components/voucher-code-redemption/RenderOrderSummary/RenderOrderSummary";
 import Footer from "../../components/Footer/Footer";
 import { useEffect, useState } from "react";
-import { getCartAndVoucherFromSessionStorage } from "../../utils/localStorage";
+import { getCartAndVoucherFromSessionStorage } from "../../utils/voucher-code-redemption/sessionStorage";
 import { VoucherProperties } from "../../components/voucher-code-redemption/RenderOrderSummary/types";
 import { filterZeroQuantityProducts } from "../../utils/filterZeroQuantityProducts";
 import { defaultProducts } from "../../utils/defaultProducts";
@@ -42,7 +42,7 @@ const Cart = ({ products }: Products) => {
       {
         method: "POST",
         headers: {
-          Accept: "application/json",
+          "Accept": "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ voucherCode, filteredProducts }),
