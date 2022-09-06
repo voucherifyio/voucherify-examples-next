@@ -1,0 +1,45 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-right: 10px;
+}
+
+.menuWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    min-width: 652px;
+    gap: 30px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 21px;
+    color: var(--deep-blue);
+    padding-inline-start: 40px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+}
+
+.shoppingCart {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shoppingCart::after {
+    content: "4";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -15px;
+    left: 15px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: var(--orange);
+    font-size: 14px;
+}
