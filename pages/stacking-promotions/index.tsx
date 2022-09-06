@@ -29,7 +29,10 @@ const Cart = ({ products }: Products) => {
     storageProducts
       ? setCurrentProducts(storageProducts)
       : setCurrentProducts(products);
-    vouchersProperties && setVouchersProperties(vouchersProperties);
+    if (vouchersProperties.redeemables?.length) {
+      setVouchersProperties(vouchersProperties);
+      setRedeemables(vouchersProperties.redeemables);
+    }
   }, [products]);
 
   const validatePromotionTier = async (
@@ -61,7 +64,7 @@ const Cart = ({ products }: Products) => {
     const data = await response.json();
     if (data.length) {
       const { object, id } = await data[0];
-      redeemables.unshift({ object: object, id: id });
+      redeemables?.unshift({ object: object, id: id });
     } else {
       setIsActive(false);
       return;
@@ -75,9 +78,10 @@ const Cart = ({ products }: Products) => {
     voucherCodeValue: string,
     redeemables: Voucher[]
   ) => {
+    console.log(redeemables);
     const { filteredProducts } = filterZeroQuantityProducts(currentProducts);
     voucherCodeValue &&
-      redeemables.push({ object: "voucher", id: voucherCodeValue });
+      redeemables?.push({ object: "voucher", id: voucherCodeValue });
     const response = await fetch(
       process.env.NEXT_PUBLIC_BACKEND_URL +
         "/api/stacking-promotions/validateStackable",
@@ -109,11 +113,10 @@ const Cart = ({ products }: Products) => {
         }),
       ]);
     }
-
     setVouchersProperties(data);
     setVoucherCodeValue("");
+    setInputError("");
     setError("");
-    return data;
   };
 
   return (
