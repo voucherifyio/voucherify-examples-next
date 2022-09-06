@@ -23,9 +23,11 @@ const Discounts = ({ products, voucherProperties }: Props) => {
       <div className={styles.discountTitle}>
         <p>Discount applied to cart</p>
       </div>
-      <h5 className={styles.voucher}>
-        <span>{voucherProperties?.code}</span>
-      </h5>
+      <div className={styles.vouchers}>
+        <h5 className={styles.voucher}>
+          <span>{voucherProperties?.code}</span>
+        </h5>
+      </div>
       <div className={styles.valueProp}>
         <p>Value</p>
         <span>${voucherProperties?.discount / 100}</span>
