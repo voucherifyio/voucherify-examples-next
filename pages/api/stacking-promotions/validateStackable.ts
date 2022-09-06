@@ -24,38 +24,38 @@ export default async function handler(
 ) {
   const { redeemables, filteredProducts } = req.body;
   const items = validateRequestedCart(filteredProducts);
-  console.log(items)
   promotionStackableObj.order.amount = calculateCartTotalAmount(items);
-  promotionStackableObj.redeemables = removeDuplicatedPromoObjects(redeemables)
-  console.log(promotionStackableObj);
+  promotionStackableObj.redeemables = removeDuplicatedPromoObjects(redeemables);
 
   switch (req.method) {
     case "POST":
-      const { redeemables, order } = await client.validations.validateStackable(
-        promotionStackableObj
-      );
-      if (!redeemables) {
-        return res.status(404).json({
-          status: "error",
-          message: "Could not find voucher",
+      try {
+        const { redeemables, order } =
+          await client.validations.validateStackable(promotionStackableObj);
+        if (!redeemables) {
+          return res.status(404).json({
+            status: "error",
+            message: "Could not find voucher",
+          });
+        }
+        const [voucher] = redeemables?.filter(
+          (voucher) => voucher.status === "INAPPLICABLE"
+        );
+        if (voucher?.result?.error) {
+          return res.status(404).json({
+            status: "error",
+            message: voucher.result.error.details,
+          });
+        }
+        return res.status(200).json({
+          amount: order?.amount,
+          itemsDiscountAmount: order?.items_discount_amount,
+          allDiscount: order?.total_discount_amount,
+          redeemables,
         });
+      } catch (error: any) {
+        return res.status(400).json({ message: error?.details });
       }
-      const [voucher] = redeemables?.filter(
-        (voucher) => voucher.status === "INAPPLICABLE"
-      );
-      console.log(voucher)
-      if (voucher?.result?.error) {
-        return res.status(404).json({
-          status: "error",
-          message: voucher.result.error.details,
-        });
-      }
-      return res.status(200).json({
-        amount: order?.amount,
-        itemsDiscountAmount: order?.items_discount_amount,
-        allDiscount: order?.total_discount_amount,
-        redeemables,
-      });
     default:
       return res.status(400).json({ error: "No response for this request" });
   }
