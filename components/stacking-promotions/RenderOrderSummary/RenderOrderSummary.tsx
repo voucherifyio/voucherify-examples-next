@@ -33,16 +33,14 @@ const RenderOrderSummary = ({
   setInputError,
   inputError,
   validatePromotionTier,
-  redeemables
+  redeemables,
 }: Props) => {
-
   const router = useRouter();
 
   const getInputValue = (e: ChangeEvent) => {
     setVoucherCodeValue((e.target as HTMLInputElement).value);
   };
 
-  console.log(error);
   return (
     <div className={styles.orderSummary}>
       <h2>Order summary</h2>
@@ -119,10 +117,11 @@ const RenderOrderSummary = ({
                     : voucher.id}
                 </h5>
                 <div>
-                  $
-                  {(
-                    voucher?.order!.total_applied_discount_amount / 100
-                  ).toFixed(2)}
+                  {voucher.id === "FREE-SHIPPING"
+                    ? "Free shipping"
+                    : `$${(
+                        voucher?.order!.total_applied_discount_amount / 100
+                      ).toFixed(2)}`}
                 </div>
               </div>
             );
@@ -137,7 +136,11 @@ const RenderOrderSummary = ({
           All Your Discounts:
           <span id={styles.allDiscounts}>
             {vouchersProperties?.allDiscount
-              ? `$${(vouchersProperties?.allDiscount / 100).toFixed(2)}`
+              ? `$${(
+                  (vouchersProperties?.allDiscount -
+                    vouchersProperties?.itemsDiscountAmount) /
+                    100 || vouchersProperties?.allDiscount / 100
+                ).toFixed(2)}`
               : "n/a"}
           </span>
         </h4>
@@ -145,7 +148,7 @@ const RenderOrderSummary = ({
           Grand total:
           <span id={styles.grandTotal}>
             $
-            {vouchersProperties
+            {vouchersProperties?.redeemables
               ? (
                   vouchersProperties?.redeemables?.at(-1)?.order!
                     ?.total_amount / 100
