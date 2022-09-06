@@ -2,6 +2,7 @@ import styles from "../../../styles/FormPreview/FormPreview.module.css";
 import Image from "next/image";
 import { EachProduct } from "../../../pages/types";
 import { VouchersProperties } from "../../../pages/types";
+import CheckoutNavButtons from "../CheckoutNavButtons/CheckoutNavButtons";
 
 type Props = {
   products: EachProduct[];
@@ -96,10 +97,10 @@ const FormPreview = ({ products, vouchersProperties }: Props) => {
             <p>Save this information for next time</p>
           </div>
         </div>
-        {/* <CheckoutNavButtons
+        <CheckoutNavButtons
           products={products}
           vouchersProperties={vouchersProperties as VouchersProperties}
-        /> */}
+        />
       </form>
     </div>
   );
