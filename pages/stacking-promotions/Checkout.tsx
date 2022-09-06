@@ -18,7 +18,7 @@ const Checkout = () => {
     setProducts(products);
     setVouchersProperties(vouchersProperties);
   }, []);
-
+  console.log(vouchersProperties);
   return (
     <>
       <MetaProperties
@@ -31,10 +31,10 @@ const Checkout = () => {
           products={products}
           vouchersProperties={vouchersProperties as VouchersProperties}
         />
-        {/* <CheckoutSummary
+        <CheckoutSummary
           products={products}
           vouchersProperties={vouchersProperties as VouchersProperties}
-        /> */}
+        />
       </div>
     </>
   );
