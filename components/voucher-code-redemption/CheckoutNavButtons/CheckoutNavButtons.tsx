@@ -46,7 +46,7 @@ const CheckoutNavButtons = ({ products, voucherProperties }: Props) => {
       <button
         onClick={(e) => {
           e.preventDefault();
-          redeemVoucher(voucherProperties.code, products);
+          redeemVoucher(voucherProperties?.code, products);
           sessionStorage.clear();
         }}
       >
