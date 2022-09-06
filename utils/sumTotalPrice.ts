@@ -1,7 +1,7 @@
 import { EachProduct } from "../pages/types";
 
 export const sumTotalPrice = (products: EachProduct[]) => {
-  return products
+  return products && products
     ?.map((product: EachProduct) => {
       return product.price * product.quantity;
     })
