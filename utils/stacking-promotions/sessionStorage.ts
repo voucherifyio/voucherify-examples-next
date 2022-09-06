@@ -23,7 +23,7 @@ export const getCartAndVoucherFromSessionStorage = () => {
     storageProducts:
       productsFromSessionStorage.length && productsFromSessionStorage,
     vouchersProperties:
-      vouchersPropertiesFromSessionStorage.length &&
+      vouchersPropertiesFromSessionStorage &&
       vouchersPropertiesFromSessionStorage,
   };
 };
