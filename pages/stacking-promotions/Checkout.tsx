@@ -18,7 +18,6 @@ const Checkout = () => {
     setProducts(products);
     setVouchersProperties(vouchersProperties);
   }, []);
-  console.log(vouchersProperties);
   return (
     <>
       <MetaProperties
