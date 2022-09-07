@@ -11,12 +11,13 @@ type Props = {
 const Discounts = ({ products, vouchersProperties }: Props) => {
 
   const sumGrandTotal = (products: EachProduct[]) => {
+    console.log(vouchersProperties)
     const subtotal = sumTotalPrice(products);
     const promotions =
       (vouchersProperties?.allDiscount -
         vouchersProperties?.itemsDiscountAmount) /
         100 ||
-      vouchersProperties?.allDiscount / 100 ||
+      (vouchersProperties?.allDiscount / 100) - 20 ||
       0;
     const grandTotal = parseFloat(subtotal) - promotions;
     return grandTotal;
