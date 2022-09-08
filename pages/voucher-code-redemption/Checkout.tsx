@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
-import FormPreview from "../../components/voucher-code-redemption/FormPreview/FormPreview";
+import FormPreview from "../../components/voucher-code-redemption/FormPreview";
 import { MetaProperties } from "../../components/MetaProperties/Meta";
-import CheckoutSummary from "../../components/voucher-code-redemption/CheckoutSummary/CheckoutSummary";
+import CheckoutSummary from "../../components/voucher-code-redemption/CheckoutSummary";
 import { VoucherProperties } from "../../components/voucher-code-redemption/RenderOrderSummary/types";
 import styles from "../../styles/CartAndCheckout.module.css";
 import { getCartAndVoucherFromSessionStorage } from "../../utils/voucher-code-redemption/sessionStorage";
-import { EachProduct } from "../types";
+import { Product, Products } from "../types";
+import { GetStaticProps } from "next";
+import { defaultProducts } from "../../utils/defaultProducts";
 
-const Checkout = () => {
-  const [products, setProducts] = useState<EachProduct[]>([]);
+const Checkout = ({ products }: Products) => {
+  const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
   const [voucherProperties, setVoucherProperties] =
     useState<VoucherProperties>();
 
   useEffect(() => {
-    const { storageProducts: products, voucherProperties } =
+    const { storageProducts, voucherProperties } =
       getCartAndVoucherFromSessionStorage();
-    setProducts(products);
-    setVoucherProperties(voucherProperties);
-  }, []);
+    storageProducts
+      ? setCurrentProducts(storageProducts)
+      : setCurrentProducts(products);
+    setVoucherProperties(voucherProperties as VoucherProperties);
+  }, [products]);
 
   return (
     <>
@@ -28,11 +32,11 @@ const Checkout = () => {
       />
       <div className={styles.checkoutPageWrapper}>
         <FormPreview
-          products={products}
+          currentProducts={currentProducts}
           voucherProperties={voucherProperties as VoucherProperties}
         />
         <CheckoutSummary
-          products={products}
+          currentProducts={currentProducts}
           voucherProperties={voucherProperties as VoucherProperties}
         />
       </div>
@@ -41,3 +45,11 @@ const Checkout = () => {
 };
 
 export default Checkout;
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      products: defaultProducts,
+    },
+  };
+};
