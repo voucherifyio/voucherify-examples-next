@@ -47,7 +47,7 @@ const CheckoutNavButtons = ({ currentProducts, vouchersProperties }: Props) => {
       <button
         onClick={(e) => {
           e.preventDefault();
-          redeemStackable(vouchersProperties.redeemables, currentProducts);
+          redeemStackable(vouchersProperties!?.redeemables, currentProducts);
         }}
       >
         {!resultMessage ? "Complete order" || error : resultMessage}
