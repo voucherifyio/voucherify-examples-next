@@ -1,9 +1,9 @@
-import { VouchersProperties } from "../../pages/types";
-import { EachProduct } from "../../pages/types";
+import { Voucher, VouchersProperties } from "../../pages/types";
+import { Product } from "../../pages/types";
 
 export const saveCartAndVoucherInSessionStorage = (
   vouchersProperties: VouchersProperties,
-  products: EachProduct[]
+  products: Product[]
 ) => {
   window.sessionStorage.setItem(
     "sp-vouchersProperties",
@@ -13,17 +13,17 @@ export const saveCartAndVoucherInSessionStorage = (
 };
 
 export const getCartAndVoucherFromSessionStorage = () => {
-  const productsFromSessionStorage = JSON.parse(
+  const productsFromSessionStorage: Product[] = JSON.parse(
     sessionStorage.getItem("sp-products") || "[]"
   );
-  const vouchersPropertiesFromSessionStorage = JSON.parse(
+  const vouchersPropertiesFromSessionStorage: VouchersProperties = JSON.parse(
     sessionStorage.getItem("sp-vouchersProperties") || "{}"
   );
   return {
     storageProducts:
       productsFromSessionStorage.length && productsFromSessionStorage,
     vouchersProperties:
-      vouchersPropertiesFromSessionStorage &&
+      vouchersPropertiesFromSessionStorage.redeemables &&
       vouchersPropertiesFromSessionStorage,
   };
 };
