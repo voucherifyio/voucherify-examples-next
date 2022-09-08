@@ -1,40 +1,29 @@
-import styles from "../../styles/RenderCartPreview/RenderCartPreview.module.css";
+import styles from "../../../styles/RenderCartPreview/RenderCartPreview.module.css";
 import Image from "next/image";
-import { Product } from "../../pages/types";
-import { VoucherProperties } from "./OrderSummary/types";
+import { Product, Voucher } from "../../../pages/types";
 
 type Props = {
   currentProducts: Product[];
   setCurrentProducts: (products: Product[]) => void;
-  setVoucherCodeValue: (voucherCodeValue: string) => void;
-  voucherProperties: VoucherProperties;
-  onProductsQuantityChange: (
-    voucherCodeValue: string,
-    currentProducts: Product[]
-  ) => unknown;
+  redeemables: Voucher[];
 };
 
 const RenderCartPreview = ({
   currentProducts,
   setCurrentProducts,
-  voucherProperties,
-  onProductsQuantityChange,
+  redeemables,
 }: Props) => {
   const products = [...currentProducts];
 
   const incrementQuantity = (index: number) => {
     products[index].quantity++;
     setCurrentProducts(products);
-    voucherProperties?.code &&
-      onProductsQuantityChange(voucherProperties.code, currentProducts);
   };
 
   const decrementQuantity = (index: number) => {
     if (currentProducts[index].quantity <= 0) return;
     products[index].quantity--;
     setCurrentProducts(products);
-    voucherProperties?.code &&
-      onProductsQuantityChange(voucherProperties.code, currentProducts);
   };
 
   return (
