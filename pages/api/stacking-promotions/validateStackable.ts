@@ -26,37 +26,34 @@ export default async function handler(
   const items = validateRequestedCart(filteredProducts);
   promotionStackableObj.order.amount = calculateCartTotalAmount(items);
   promotionStackableObj.redeemables = removeDuplicatedPromoObjects(redeemables);
-
-  switch (req.method) {
-    case "POST":
-      try {
-        const { redeemables, order } =
-          await client.validations.validateStackable(promotionStackableObj);
-        if (!redeemables) {
-          return res.status(404).json({
-            status: "error",
-            message: "Could not find voucher",
-          });
-        }
-        const [voucher] = redeemables?.filter(
-          (voucher) => voucher.status === "INAPPLICABLE"
-        );
-        if (voucher?.result?.error) {
-          return res.status(404).json({
-            status: "error",
-            message: voucher.result.error.details,
-          });
-        }
-        return res.status(200).json({
-          amount: order?.amount,
-          itemsDiscountAmount: order?.items_discount_amount,
-          allDiscount: order?.total_discount_amount,
-          redeemables,
+  if (req.method === "POST") {
+    try {
+      const { redeemables, order } = await client.validations.validateStackable(
+        promotionStackableObj
+      );
+      if (!redeemables) {
+        return res.status(404).json({
+          status: "error",
+          message: "Could not find voucher",
         });
-      } catch (error: any) {
-        return res.status(400).json({ message: error?.details });
       }
-    default:
-      return res.status(400).json({ error: "No response for this request" });
+      const [voucher] = redeemables?.filter(
+        (voucher) => voucher.status === "INAPPLICABLE"
+      );
+      if (voucher?.result?.error) {
+        return res.status(404).json({
+          status: "error",
+          message: voucher.result.error.details,
+        });
+      }
+      return res.status(200).json({
+        amount: order?.amount,
+        itemsDiscountAmount: order?.items_discount_amount,
+        allDiscount: order?.total_discount_amount,
+        redeemables,
+      });
+    } catch (error: any) {
+      return res.status(400).json({ message: error?.details });
+    }
   }
 }

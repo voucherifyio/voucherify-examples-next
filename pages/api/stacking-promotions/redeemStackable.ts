@@ -27,29 +27,26 @@ export default async function handler(
   promotionStackableObj.order.amount = calculateCartTotalAmount(items);
   promotionStackableObj.redeemables = removeDuplicatedPromoObjects(redeemables);
 
-  switch (req.method) {
-    case "POST":
-      try {
-        const { redemptions } = await client.redemptions.redeemStackable(
-          promotionStackableObj
-        );
-        if (!redemptions) {
-          return res.status(404).json({
-            status: "ERROR",
-            message: "Vouchers cannot be redeemed",
-          });
-        }
-        return res.status(200).json({
-          status: "SUCCESS",
-          message: "Vouchers redeemed",
-        });
-      } catch (error) {
-        return res.status(400).json({
+  if (req.method === "POST") {
+    try {
+      const { redemptions } = await client.redemptions.redeemStackable(
+        promotionStackableObj
+      );
+      if (!redemptions) {
+        return res.status(404).json({
           status: "ERROR",
           message: "Vouchers cannot be redeemed",
         });
       }
-    default:
-      return res.status(400).json({ error: "No request for this response" });
+      return res.status(200).json({
+        status: "SUCCESS",
+        message: "Vouchers redeemed",
+      });
+    } catch (error) {
+      return res.status(400).json({
+        status: "ERROR",
+        message: "Vouchers cannot be redeemed",
+      });
+    }
   }
 }
