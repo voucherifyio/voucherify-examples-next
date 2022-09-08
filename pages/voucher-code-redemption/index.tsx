@@ -82,7 +82,7 @@ const Cart = ({ products }: Products) => {
             setCurrentProducts={setCurrentProducts}
             setVoucherCodeValue={setVoucherCodeValue}
             voucherProperties={voucherProperties as VoucherProperties}
-            validateVoucher={validateVoucher}
+            onProductsQuantityChange={validateVoucher}
           />
           <OrderSummary
             currentProducts={currentProducts}
@@ -90,7 +90,7 @@ const Cart = ({ products }: Products) => {
             voucherCodeValue={voucherCodeValue}
             voucherProperties={voucherProperties as VoucherProperties}
             error={error}
-            setInputError={setInputError}
+            onInputError={setInputError}
             inputError={inputError}
             onVoucherCodeSubmit={validateVoucher}
           />

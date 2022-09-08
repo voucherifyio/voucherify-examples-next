@@ -7,7 +7,7 @@ type Props = {
   setCurrentProducts: (products: Product[]) => void;
   redeemables: Voucher[];
   isActive: boolean;
-  validateVouchers: (
+  onProductsQuantityChange: (
     currentProducts: Product[],
     voucherCodeValue: string,
     redeemables: Voucher[]
@@ -19,21 +19,21 @@ const RenderCartPreview = ({
   setCurrentProducts,
   redeemables,
   isActive,
-  validateVouchers,
+  onProductsQuantityChange,
 }: Props) => {
   const products = [...currentProducts];
-  
+
   const incrementQuantity = async (index: number) => {
     products[index].quantity++;
-    // setCurrentProducts(products);
-    await validateVouchers(currentProducts, "", redeemables);
+    setCurrentProducts(products);
+    await onProductsQuantityChange(currentProducts, "", redeemables);
   };
 
   const decrementQuantity = async (index: number) => {
     if (currentProducts[index].quantity <= 0) return;
     products[index].quantity--;
     setCurrentProducts(products);
-    await validateVouchers(currentProducts, "", redeemables);
+    await onProductsQuantityChange(currentProducts, "", redeemables);
   };
 
   return (

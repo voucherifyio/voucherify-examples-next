@@ -8,7 +8,7 @@ type Props = {
   setCurrentProducts: (products: Product[]) => void;
   setVoucherCodeValue: (voucherCodeValue: string) => void;
   voucherProperties: VoucherProperties;
-  validateVoucher: (
+  onProductsQuantityChange: (
     voucherCodeValue: string,
     currentProducts: Product[]
   ) => unknown;
@@ -18,7 +18,7 @@ const RenderCartPreview = ({
   currentProducts,
   setCurrentProducts,
   voucherProperties,
-  validateVoucher,
+  onProductsQuantityChange,
 }: Props) => {
   const products = [...currentProducts];
 
@@ -26,7 +26,7 @@ const RenderCartPreview = ({
     products[index].quantity++;
     setCurrentProducts(products);
     voucherProperties?.code &&
-      validateVoucher(voucherProperties.code, currentProducts);
+    onProductsQuantityChange(voucherProperties.code, currentProducts);
   };
 
   const decrementQuantity = (index: number) => {
@@ -34,7 +34,7 @@ const RenderCartPreview = ({
     products[index].quantity--;
     setCurrentProducts(products);
     voucherProperties?.code &&
-      validateVoucher(voucherProperties.code, currentProducts);
+    onProductsQuantityChange(voucherProperties.code, currentProducts);
   };
 
   return (

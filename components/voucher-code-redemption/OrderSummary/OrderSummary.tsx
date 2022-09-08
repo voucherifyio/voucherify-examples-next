@@ -13,7 +13,7 @@ type Props = {
   voucherCodeValue: string;
   voucherProperties: VoucherProperties;
   error: string;
-  setInputError: (inputError: string) => void;
+  onInputError: (inputError: string) => void;
   inputError: string;
   onVoucherCodeSubmit: (
     voucherCodeValue: string,
@@ -27,7 +27,7 @@ const OrderSummary = ({
   voucherCodeValue,
   voucherProperties,
   error,
-  setInputError,
+  onInputError,
   inputError,
   onVoucherCodeSubmit,
 }: Props) => {
@@ -43,7 +43,7 @@ const OrderSummary = ({
       alert("Please add items to basket");
     }
     if (!voucherCodeValue) {
-      setInputError("Please enter voucher code");
+      onInputError("Please enter voucher code");
       return false;
     }
     onVoucherCodeSubmit(voucherCodeValue as string, currentProducts);
