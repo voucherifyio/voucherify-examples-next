@@ -37,7 +37,7 @@ const RenderOrderSummary = ({
 }: Props) => {
   const router = useRouter();
 
-  const getInputValue = (e: ChangeEvent) => {
+  const setVoucherCode = (e: ChangeEvent) => {
     setVoucherCodeValue((e.target as HTMLInputElement).value);
   };
 
@@ -87,7 +87,7 @@ const RenderOrderSummary = ({
               placeholder="Enter your code"
               id={styles.voucherCode}
               value={voucherCodeValue}
-              onChange={(e) => getInputValue(e)}
+              onChange={(e) => setVoucherCode(e)}
             />
             <button id={styles.checkVoucherCode}>
               <Image
