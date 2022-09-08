@@ -23,7 +23,7 @@ type Props = {
   ) => Promise<void>;
 };
 
-const RenderOrderSummary = ({
+const OrderSummary = ({
   currentProducts,
   setVoucherCodeValue,
   voucherCodeValue,
@@ -176,4 +176,4 @@ const RenderOrderSummary = ({
   );
 };
 
-export default RenderOrderSummary;
+export default OrderSummary;

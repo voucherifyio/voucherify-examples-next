@@ -8,7 +8,7 @@ import Link from "next/link";
 import Footer from "../../components/Footer/Footer";
 import RenderCartPreview from "../../components/stacking-promotions/RenderCartPreview";
 import { getCartAndVoucherFromSessionStorage } from "../../utils/stacking-promotions/sessionStorage";
-import RenderOrderSummary from "../../components/stacking-promotions/OrderSummary";
+import OrderSummary from "../../components/stacking-promotions/OrderSummary";
 import { filterZeroQuantityProducts } from "../../utils/filterZeroQuantityProducts";
 import { filterPromotionTierFromVouchers } from "../../utils/filterPromotionTierFromVouchers";
 import { GetStaticProps } from "next";
@@ -157,17 +157,16 @@ const Cart = ({ products }: Products) => {
             isActive={isActive}
             validateVouchers={validateVouchers}
           />
-          <RenderOrderSummary
+          <OrderSummary
             currentProducts={currentProducts}
             setVoucherCodeValue={setVoucherCodeValue}
             voucherCodeValue={voucherCodeValue}
-            setVouchersProperties={setVouchersProperties}
             vouchersProperties={vouchersProperties as VouchersProperties}
             error={error}
             setInputError={setInputError}
             inputError={inputError}
             redeemables={redeemables}
-            validateVouchers={validateVouchers}
+            onVoucherCodeSubmit={validateVouchers}
           />
         </section>
         <Footer />

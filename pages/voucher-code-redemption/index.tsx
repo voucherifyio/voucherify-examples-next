@@ -5,7 +5,7 @@ import { MetaProperties } from "../../components/MetaProperties/Meta";
 import RenderCartPreview from "../../components/voucher-code-redemption/RenderCartPreview";
 import { Product, Products } from "../types";
 import { GetStaticProps } from "next";
-import RenderOrderSummary from "../../components/voucher-code-redemption/OrderSummary/OrderSummary";
+import OrderSummary from "../../components/voucher-code-redemption/OrderSummary/OrderSummary";
 import Footer from "../../components/Footer/Footer";
 import { useEffect, useState } from "react";
 import { getCartAndVoucherFromSessionStorage } from "../../utils/voucher-code-redemption/sessionStorage";
@@ -84,13 +84,11 @@ const Cart = ({ products }: Products) => {
             voucherProperties={voucherProperties as VoucherProperties}
             validateVoucher={validateVoucher}
           />
-          <RenderOrderSummary
+          <OrderSummary
             currentProducts={currentProducts}
             setVoucherCodeValue={setVoucherCodeValue}
             voucherCodeValue={voucherCodeValue}
-            setVoucherProperties={setVoucherProperties}
             voucherProperties={voucherProperties as VoucherProperties}
-            setError={setError}
             error={error}
             setInputError={setInputError}
             inputError={inputError}
