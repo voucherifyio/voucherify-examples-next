@@ -1,44 +1,45 @@
-import styles from "../../../styles/FormPreview/FormPreview.module.css";
+import styles from "../../styles/FormPreview/FormPreview.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import { EachProduct } from "../../../pages/types";
-import { VoucherProperties } from "../RenderOrderSummary/types";
-import { filterZeroQuantityProducts } from "../../../utils/filterZeroQuantityProducts";
+import { Product } from "../../pages/types";
+import { VouchersProperties, Voucher } from "../../pages/types";
+import { filterZeroQuantityProducts } from "../../utils/filterZeroQuantityProducts";
 import { useState } from "react";
 
 type Props = {
-  products: EachProduct[];
-  voucherProperties: VoucherProperties;
+  currentProducts: Product[];
+  vouchersProperties: VouchersProperties;
 };
 
-const CheckoutNavButtons = ({ products, voucherProperties }: Props) => {
+const CheckoutNavButtons = ({ currentProducts, vouchersProperties }: Props) => {
   const [resultMessage, setResultMessage] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-  const redeemVoucher = async (
-    voucherCode: string,
-    currentProducts: EachProduct[]
+  const redeemStackable = async (
+    redeemables: Voucher[],
+    currentProducts: Product[]
   ) => {
     const { filteredProducts } = filterZeroQuantityProducts(currentProducts);
     const response = await fetch(
       process.env.NEXT_PUBLIC_BACKEND_URL +
-        `/api/voucher-code-redemption/redeemVoucher`,
+        `/api/stacking-promotions/redeemStackable`,
       {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ voucherCode, filteredProducts }),
+        body: JSON.stringify({ redeemables, filteredProducts }),
       }
     );
-
     const data = await response.json();
 
     if (response.status !== 200) {
-      setError(data.error);
+      setError(data.message);
+      return;
     }
     setResultMessage(data.message);
+    sessionStorage.clear();
   };
 
   return (
@@ -46,13 +47,12 @@ const CheckoutNavButtons = ({ products, voucherProperties }: Props) => {
       <button
         onClick={(e) => {
           e.preventDefault();
-          redeemVoucher(voucherProperties?.code, products);
-          sessionStorage.clear();
+          redeemStackable(vouchersProperties.redeemables, currentProducts);
         }}
       >
         {!resultMessage ? "Complete order" || error : resultMessage}
       </button>
-      <Link href="/voucher-code-redemption">
+      <Link href="/stacking-promotions">
         <a>
           <span>
             <Image
@@ -62,7 +62,7 @@ const CheckoutNavButtons = ({ products, voucherProperties }: Props) => {
               width={15}
               height={15}
             />
-          </span>{" "}
+          </span>
           Return to cart
         </a>
       </Link>

@@ -1,14 +1,14 @@
-import { EachProduct, Voucher } from "../../../pages/types";
-import styles from "../../../styles/RenderOrderSummary/RenderOrderSummary.module.css";
+import { Product, Voucher } from "../../pages/types";
+import styles from "../../styles/RenderOrderSummary/RenderOrderSummary.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { sumTotalPrice } from "../../../utils/sumTotalPrice";
+import { sumTotalPrice } from "../../utils/sumTotalPrice";
 import { ChangeEvent } from "react";
-import { VouchersProperties } from "../../../pages/types";
-import { saveCartAndVoucherInSessionStorage } from "../../../utils/stacking-promotions/sessionStorage";
+import { VouchersProperties } from "../../pages/types";
+import { saveCartAndVoucherInSessionStorage } from "../../utils/stacking-promotions/sessionStorage";
 
 type Props = {
-  currentProducts: EachProduct[];
+  currentProducts: Product[];
   setVoucherCodeValue: (voucherCodeValue: string) => void;
   voucherCodeValue: string;
   setVouchersProperties: (vouchersProperties: VouchersProperties) => void;
@@ -17,11 +17,11 @@ type Props = {
   setInputError: (inputError: string) => void;
   inputError: string;
   redeemables: Voucher[];
-  validatePromotionTier: (
-    currentProducts: EachProduct[],
+  validateVouchers: (
+    currentProducts: Product[],
     voucherCodeValue: string,
     redeemables: Voucher[]
-  ) => unknown;
+  ) => Promise<void>;
 };
 
 const RenderOrderSummary = ({
@@ -32,8 +32,8 @@ const RenderOrderSummary = ({
   error,
   setInputError,
   inputError,
-  validatePromotionTier,
   redeemables,
+  validateVouchers,
 }: Props) => {
   const router = useRouter();
 
@@ -79,7 +79,7 @@ const RenderOrderSummary = ({
                 return;
               }
               e.preventDefault();
-              await validatePromotionTier(
+              await validateVouchers(
                 currentProducts,
                 voucherCodeValue,
                 redeemables

@@ -1,17 +1,17 @@
-import { EachProduct } from "../../../pages/types";
-import styles from "../../../styles/Discounts.module.css";
-import { sumTotalPrice } from "../../../utils/sumTotalPrice";
-import { VoucherProperties } from "../RenderOrderSummary/types";
+import { Product } from "../../pages/types";
+import styles from "../../styles/Discounts.module.css";
+import { sumTotalPrice } from "../../utils/sumTotalPrice";
+import { VoucherProperties } from "./RenderOrderSummary/types";
 
 type Props = {
-  products: EachProduct[];
+  currentProducts: Product[];
   voucherProperties: VoucherProperties;
 };
 
-const Discounts = ({ products, voucherProperties }: Props) => {
+const Discounts = ({ currentProducts, voucherProperties }: Props) => {
   const shippingValue = voucherProperties?.code === "FREE-SHIPPING" ? 0 : 20;
 
-  const sumGrandTotal = (products: EachProduct[]) => {
+  const sumGrandTotal = (products: Product[]) => {
     const subtotal = sumTotalPrice(products);
     const promotions = voucherProperties?.discount / 100 || 0;
     const grandTotal = parseFloat(subtotal) - promotions + shippingValue;
@@ -35,7 +35,7 @@ const Discounts = ({ products, voucherProperties }: Props) => {
       <div className={styles.summedPrices}>
         <div className={styles.subtotal}>
           <p>Subtotal</p>
-          <span>${sumTotalPrice(products)}</span>
+          <span>${sumTotalPrice(currentProducts)}</span>
         </div>
         <div className={styles.allDiscounts}>
           <p>All your discounts</p>
@@ -47,7 +47,7 @@ const Discounts = ({ products, voucherProperties }: Props) => {
         </div>
         <div className={styles.grandTotal}>
           <p>Grand total</p>
-          <span>${sumGrandTotal(products).toFixed(2)}</span>
+          <span>${sumGrandTotal(currentProducts).toFixed(2)}</span>
         </div>
       </div>
     </div>

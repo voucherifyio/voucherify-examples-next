@@ -1,16 +1,16 @@
-import styles from "../../../styles/RenderCartPreview/RenderCartPreview.module.css";
+import styles from "../../styles/RenderCartPreview/RenderCartPreview.module.css";
 import Image from "next/image";
-import { EachProduct } from "../../../pages/types";
-import { VoucherProperties } from "../RenderOrderSummary/types";
+import { Product } from "../../pages/types";
+import { VoucherProperties } from "./RenderOrderSummary/types";
 
 type Props = {
-  currentProducts: EachProduct[];
-  setCurrentProducts: (products: EachProduct[]) => void;
+  currentProducts: Product[];
+  setCurrentProducts: (products: Product[]) => void;
   setVoucherCodeValue: (voucherCodeValue: string) => void;
   voucherProperties: VoucherProperties;
   validateVoucher: (
     voucherCodeValue: string,
-    currentProducts: EachProduct[]
+    currentProducts: Product[]
   ) => unknown;
 };
 

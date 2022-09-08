@@ -1,39 +1,39 @@
-import styles from "../../../styles/RenderCartPreview/RenderCartPreview.module.css";
+import styles from "../../styles/RenderCartPreview/RenderCartPreview.module.css";
 import Image from "next/image";
-import { EachProduct, Voucher } from "../../../pages/types";
+import { Product, Voucher } from "../../pages/types";
 
 type Props = {
-  currentProducts: EachProduct[];
-  setCurrentProducts: (products: EachProduct[]) => void;
-  validatePromotionTier: (
-    currentProducts: EachProduct[],
-    voucherCodeValue: string,
-    redeemables: Voucher[]
-  ) => unknown;
+  currentProducts: Product[];
+  setCurrentProducts: (products: Product[]) => void;
   redeemables: Voucher[];
   isActive: boolean;
+  validateVouchers: (
+    currentProducts: Product[],
+    voucherCodeValue: string,
+    redeemables: Voucher[]
+  ) => Promise<void>;
 };
 
 const RenderCartPreview = ({
   currentProducts,
   setCurrentProducts,
-  validatePromotionTier,
   redeemables,
   isActive,
+  validateVouchers,
 }: Props) => {
   const products = [...currentProducts];
-
-  const incrementQuantity = (index: number) => {
+  
+  const incrementQuantity = async (index: number) => {
     products[index].quantity++;
-    setCurrentProducts(products);
-    validatePromotionTier(currentProducts, "", redeemables);
+    // setCurrentProducts(products);
+    await validateVouchers(currentProducts, "", redeemables);
   };
 
-  const decrementQuantity = (index: number) => {
+  const decrementQuantity = async (index: number) => {
     if (currentProducts[index].quantity <= 0) return;
     products[index].quantity--;
     setCurrentProducts(products);
-    validatePromotionTier(currentProducts, "", redeemables);
+    await validateVouchers(currentProducts, "", redeemables);
   };
 
   return (
@@ -60,7 +60,7 @@ const RenderCartPreview = ({
                 <button
                   className={styles.decrement}
                   disabled={isActive}
-                  onClick={() => decrementQuantity(index)}
+                  onClick={async () => await decrementQuantity(index)}
                 >
                   -
                 </button>
@@ -73,7 +73,7 @@ const RenderCartPreview = ({
                 <button
                   className={styles.increment}
                   disabled={isActive}
-                  onClick={() => incrementQuantity(index)}
+                  onClick={async () => await incrementQuantity(index)}
                 >
                   +
                 </button>

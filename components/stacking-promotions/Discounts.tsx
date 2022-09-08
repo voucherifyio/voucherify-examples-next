@@ -1,23 +1,21 @@
-import { EachProduct } from "../../../pages/types";
-import styles from "../../../styles/Discounts.module.css";
-import { sumTotalPrice } from "../../../utils/sumTotalPrice";
-import { VouchersProperties } from "../../../pages/types";
+import { Product } from "../../pages/types";
+import styles from "../../styles/Discounts.module.css";
+import { sumTotalPrice } from "../../utils/sumTotalPrice";
+import { VouchersProperties } from "../../pages/types";
 
 type Props = {
-  products: EachProduct[];
+  products: Product[];
   vouchersProperties: VouchersProperties;
 };
 
 const Discounts = ({ products, vouchersProperties }: Props) => {
-
-  const sumGrandTotal = (products: EachProduct[]) => {
-    console.log(vouchersProperties)
+  const sumGrandTotal = (products: Product[]) => {
     const subtotal = sumTotalPrice(products);
     const promotions =
       (vouchersProperties?.allDiscount -
         vouchersProperties?.itemsDiscountAmount) /
         100 ||
-      (vouchersProperties?.allDiscount / 100) - 20 ||
+      vouchersProperties?.allDiscount / 100 - 20 ||
       0;
     const grandTotal = parseFloat(subtotal) - promotions;
     return grandTotal;
