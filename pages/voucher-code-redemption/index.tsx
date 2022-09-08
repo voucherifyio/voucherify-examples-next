@@ -2,7 +2,7 @@ import styles from "../../styles/CartAndCheckout.module.css";
 import Nav from "../../components/Nav/Nav";
 import Link from "next/link";
 import { MetaProperties } from "../../components/MetaProperties/Meta";
-import RenderCartPreview from "../../components/voucher-code-redemption/RenderCartPreview";
+import RenderCartPreview from "../../components/voucher-code-redemption/CartPreview";
 import { Product, Products } from "../types";
 import { GetStaticProps } from "next";
 import OrderSummary from "../../components/voucher-code-redemption/OrderSummary/OrderSummary";
@@ -24,9 +24,7 @@ const Cart = ({ products }: Products) => {
   useEffect(() => {
     const { storageProducts, voucherProperties } =
       getCartAndVoucherFromSessionStorage();
-    storageProducts
-      ? setCurrentProducts(storageProducts)
-      : setCurrentProducts(products);
+    setCurrentProducts(storageProducts || products);
     voucherProperties && setVoucherProperties(voucherProperties);
   }, [products]);
 

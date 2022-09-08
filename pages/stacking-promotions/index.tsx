@@ -6,7 +6,7 @@ import { MetaProperties } from "../../components/MetaProperties/Meta";
 import Nav from "../../components/Nav/Nav";
 import Link from "next/link";
 import Footer from "../../components/Footer/Footer";
-import RenderCartPreview from "../../components/stacking-promotions/RenderCartPreview";
+import RenderCartPreview from "../../components/stacking-promotions/CartPreview";
 import { getCartAndVoucherFromSessionStorage } from "../../utils/stacking-promotions/sessionStorage";
 import OrderSummary from "../../components/stacking-promotions/OrderSummary";
 import { filterZeroQuantityProducts } from "../../utils/filterZeroQuantityProducts";
@@ -26,9 +26,7 @@ const Cart = ({ products }: Products) => {
   useEffect(() => {
     const { storageProducts, vouchersProperties } =
       getCartAndVoucherFromSessionStorage();
-    storageProducts
-      ? setCurrentProducts(storageProducts)
-      : setCurrentProducts(products);
+    setCurrentProducts(storageProducts || products);
     if (vouchersProperties?.redeemables?.length) {
       setVouchersProperties(vouchersProperties);
       setRedeemables(vouchersProperties.redeemables);
