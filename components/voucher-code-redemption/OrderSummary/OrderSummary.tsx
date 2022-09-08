@@ -11,9 +11,7 @@ type Props = {
   currentProducts: Product[];
   setVoucherCodeValue: (voucherCodeValue: string) => void;
   voucherCodeValue: string;
-  setVoucherProperties: (voucherProperties: VoucherProperties) => void;
   voucherProperties: VoucherProperties;
-  setError: (error: string) => void;
   error: string;
   setInputError: (inputError: string) => void;
   inputError: string;
@@ -23,13 +21,11 @@ type Props = {
   ) => unknown;
 };
 
-const RenderOrderSummary = ({
+const OrderSummary = ({
   currentProducts,
   setVoucherCodeValue,
   voucherCodeValue,
-  setVoucherProperties,
   voucherProperties,
-  setError,
   error,
   setInputError,
   inputError,
@@ -166,4 +162,4 @@ const RenderOrderSummary = ({
   );
 };
 
-export default RenderOrderSummary;
+export default OrderSummary;
