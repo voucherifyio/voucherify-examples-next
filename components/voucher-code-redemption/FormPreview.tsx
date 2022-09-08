@@ -99,7 +99,7 @@ const FormPreview = ({ currentProducts, voucherProperties }: Props) => {
         </div>
         <CheckoutNavButtons
           currentProducts={currentProducts}
-          voucherProperties={voucherProperties as VoucherProperties}
+          voucherProperties={voucherProperties}
         />
       </form>
     </div>

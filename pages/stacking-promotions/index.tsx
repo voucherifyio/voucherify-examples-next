@@ -161,7 +161,7 @@ const Cart = ({ products }: Products) => {
             currentProducts={currentProducts}
             setVoucherCodeValue={setVoucherCodeValue}
             voucherCodeValue={voucherCodeValue}
-            vouchersProperties={vouchersProperties as VouchersProperties}
+            vouchersProperties={vouchersProperties}
             error={error}
             onInputError={setInputError}
             inputError={inputError}

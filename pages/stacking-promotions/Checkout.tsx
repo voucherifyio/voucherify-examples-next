@@ -33,11 +33,11 @@ const Checkout = ({ products }: Products) => {
       <div className={styles.checkoutPageWrapper}>
         <FormPreview
           currentProducts={currentProducts}
-          vouchersProperties={vouchersProperties as VouchersProperties}
+          vouchersProperties={vouchersProperties}
         />
         <CheckoutSummary
           currentProducts={currentProducts}
-          vouchersProperties={vouchersProperties as VouchersProperties}
+          vouchersProperties={vouchersProperties}
         />
       </div>
     </>

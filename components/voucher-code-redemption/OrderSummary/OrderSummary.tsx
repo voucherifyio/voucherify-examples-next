@@ -46,7 +46,7 @@ const OrderSummary = ({
       onInputError("Please enter voucher code");
       return false;
     }
-    onVoucherCodeSubmit(voucherCodeValue as string, currentProducts);
+    onVoucherCodeSubmit(voucherCodeValue, currentProducts);
   };
 
   const sumTotalPriceWithDiscount = (
@@ -132,7 +132,7 @@ const OrderSummary = ({
           <span id={styles.grandTotal}>
             $
             {sumTotalPriceWithDiscount(
-              voucherProperties as VoucherProperties,
+              voucherProperties,
               currentProducts
             ).toFixed(2)}
           </span>

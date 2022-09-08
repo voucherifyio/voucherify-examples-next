@@ -26,7 +26,7 @@ const RenderCartPreview = ({
     products[index].quantity++;
     setCurrentProducts(products);
     voucherProperties?.code &&
-    onProductsQuantityChange(voucherProperties.code, currentProducts);
+      onProductsQuantityChange(voucherProperties.code, currentProducts);
   };
 
   const decrementQuantity = (index: number) => {
@@ -34,7 +34,7 @@ const RenderCartPreview = ({
     products[index].quantity--;
     setCurrentProducts(products);
     voucherProperties?.code &&
-    onProductsQuantityChange(voucherProperties.code, currentProducts);
+      onProductsQuantityChange(voucherProperties.code, currentProducts);
   };
 
   return (

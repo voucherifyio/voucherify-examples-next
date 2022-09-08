@@ -39,4 +39,4 @@ export type VouchersProperties = {
   itemsDiscountAmount: number,
   allDiscount: number,
   redeemables: [Voucher]
-}
+} | undefined

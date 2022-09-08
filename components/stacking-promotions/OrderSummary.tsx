@@ -164,7 +164,7 @@ const OrderSummary = ({
             return false;
           }
           saveCartAndVoucherInSessionStorage(
-            vouchersProperties as VouchersProperties,
+            vouchersProperties,
             currentProducts
           );
           router.push("/stacking-promotions/Checkout");
