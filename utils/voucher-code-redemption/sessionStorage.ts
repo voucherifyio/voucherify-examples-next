@@ -1,4 +1,4 @@
-import { VoucherProperties } from "../../components/voucher-code-redemption/RenderOrderSummary/types";
+import { VoucherProperties } from "../../components/voucher-code-redemption/OrderSummary/types";
 import { Product } from "../../pages/types";
 
 export const saveCartAndVoucherInSessionStorage = (
