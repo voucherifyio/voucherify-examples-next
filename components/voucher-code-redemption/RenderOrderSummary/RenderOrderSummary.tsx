@@ -1,14 +1,14 @@
 import styles from "../../../styles/RenderOrderSummary/RenderOrderSummary.module.css";
 import Image from "next/image";
 import { sumTotalPrice } from "../../../utils/sumTotalPrice";
-import { EachProduct } from "../../../pages/types";
+import { Product } from "../../../pages/types";
 import { ChangeEvent, useState } from "react";
 import { VoucherProperties } from "./types";
 import { useRouter } from "next/router";
 import { saveCartAndVoucherInSessionStorage } from "../../../utils/voucher-code-redemption/sessionStorage";
 
 type Props = {
-  currentProducts: EachProduct[];
+  currentProducts: Product[];
   setVoucherCodeValue: (voucherCodeValue: string) => void;
   voucherCodeValue: string;
   setVoucherProperties: (voucherProperties: VoucherProperties) => void;
@@ -19,7 +19,7 @@ type Props = {
   inputError: string;
   validateVoucher: (
     voucherCodeValue: string,
-    currentProducts: EachProduct[]
+    currentProducts: Product[]
   ) => unknown;
 };
 
@@ -43,7 +43,7 @@ const RenderOrderSummary = ({
 
   const sumTotalPriceWithDiscount = (
     voucherProperties: VoucherProperties,
-    currentProducts: EachProduct[]
+    currentProducts: Product[]
   ) => {
     const promotions = voucherProperties?.discount / 100 || 0;
     const totalPrice = sumTotalPrice(currentProducts);
@@ -71,7 +71,7 @@ const RenderOrderSummary = ({
             className={styles.voucherCodeForm}
             onSubmit={(e) => {
               if (currentProducts.reduce((a, b) => a + b.quantity, 0) <= 0) {
-                alert("Please add items to basket")
+                alert("Please add items to basket");
               }
               if (!voucherCodeValue) {
                 e.preventDefault();
@@ -107,7 +107,11 @@ const RenderOrderSummary = ({
           {voucherProperties?.code && (
             <div className={styles.promotionHolder}>
               <h5>{voucherProperties?.code}</h5>
-              <div>{`${voucherProperties.discount ? `$${(voucherProperties?.discount / 100).toFixed(2)}` : "Free shipping"}`}</div>
+              <div>{`${
+                voucherProperties.discount
+                  ? `$${(voucherProperties?.discount / 100).toFixed(2)}`
+                  : "Free shipping"
+              }`}</div>
             </div>
           )}
           {error && (
