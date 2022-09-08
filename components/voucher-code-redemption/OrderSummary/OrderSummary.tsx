@@ -15,7 +15,7 @@ type Props = {
   error: string;
   setInputError: (inputError: string) => void;
   inputError: string;
-  validateVoucher: (
+  onVoucherCodeSubmit: (
     voucherCodeValue: string,
     currentProducts: Product[]
   ) => unknown;
@@ -29,7 +29,7 @@ const OrderSummary = ({
   error,
   setInputError,
   inputError,
-  validateVoucher,
+  onVoucherCodeSubmit,
 }: Props) => {
   const router = useRouter();
 
@@ -46,7 +46,7 @@ const OrderSummary = ({
       setInputError("Please enter voucher code");
       return false;
     }
-    validateVoucher(voucherCodeValue as string, currentProducts);
+    onVoucherCodeSubmit(voucherCodeValue as string, currentProducts);
   };
 
   const sumTotalPriceWithDiscount = (

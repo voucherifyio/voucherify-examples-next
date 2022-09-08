@@ -92,7 +92,7 @@ const Cart = ({ products }: Products) => {
             error={error}
             setInputError={setInputError}
             inputError={inputError}
-            validateVoucher={validateVoucher}
+            onVoucherCodeSubmit={validateVoucher}
           />
         </section>
         <Footer />
