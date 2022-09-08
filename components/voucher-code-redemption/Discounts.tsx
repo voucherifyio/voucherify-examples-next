@@ -1,7 +1,7 @@
 import { Product } from "../../pages/types";
 import styles from "../../styles/Discounts.module.css";
 import { sumTotalPrice } from "../../utils/sumTotalPrice";
-import { VoucherProperties } from "./RenderOrderSummary/types";
+import { VoucherProperties } from "./OrderSummary/types";
 
 type Props = {
   currentProducts: Product[];

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import FormPreview from "../../components/voucher-code-redemption/FormPreview";
 import { MetaProperties } from "../../components/MetaProperties/Meta";
 import CheckoutSummary from "../../components/voucher-code-redemption/CheckoutSummary";
-import { VoucherProperties } from "../../components/voucher-code-redemption/RenderOrderSummary/types";
+import { VoucherProperties } from "../../components/voucher-code-redemption/OrderSummary/types";
 import styles from "../../styles/CartAndCheckout.module.css";
 import { getCartAndVoucherFromSessionStorage } from "../../utils/voucher-code-redemption/sessionStorage";
 import { Product, Products } from "../types";

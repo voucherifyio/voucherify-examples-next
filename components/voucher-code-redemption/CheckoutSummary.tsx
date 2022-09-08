@@ -2,7 +2,7 @@ import { Product } from "../../pages/types";
 import CheckoutProductsList from "../CheckoutProductsList/CheckoutProductsList";
 import styles from "../../styles/CheckoutSummary.module.css";
 import Discounts from "./Discounts";
-import { VoucherProperties } from "./RenderOrderSummary/types";
+import { VoucherProperties } from "./OrderSummary/types";
 
 type Props = {
   currentProducts: Product[];

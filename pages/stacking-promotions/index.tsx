@@ -8,7 +8,7 @@ import Link from "next/link";
 import Footer from "../../components/Footer/Footer";
 import RenderCartPreview from "../../components/stacking-promotions/RenderCartPreview";
 import { getCartAndVoucherFromSessionStorage } from "../../utils/stacking-promotions/sessionStorage";
-import RenderOrderSummary from "../../components/stacking-promotions/RenderOrderSummary";
+import RenderOrderSummary from "../../components/stacking-promotions/OrderSummary";
 import { filterZeroQuantityProducts } from "../../utils/filterZeroQuantityProducts";
 import { filterPromotionTierFromVouchers } from "../../utils/filterPromotionTierFromVouchers";
 import { GetStaticProps } from "next";

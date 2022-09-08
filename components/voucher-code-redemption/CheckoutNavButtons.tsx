@@ -2,7 +2,7 @@ import styles from "../../styles/FormPreview/FormPreview.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { Product } from "../../pages/types";
-import { VoucherProperties } from "./RenderOrderSummary/types";
+import { VoucherProperties } from "./OrderSummary/types";
 import { filterZeroQuantityProducts } from "../../utils/filterZeroQuantityProducts";
 import { useState } from "react";
 

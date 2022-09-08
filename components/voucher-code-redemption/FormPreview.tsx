@@ -2,7 +2,7 @@ import styles from "../../styles/FormPreview/FormPreview.module.css";
 import Image from "next/image";
 import CheckoutNavButtons from "./CheckoutNavButtons";
 import { Product } from "../../pages/types";
-import { VoucherProperties } from "./RenderOrderSummary/types";
+import { VoucherProperties } from "./OrderSummary/types";
 
 type Props = {
   currentProducts: Product[];

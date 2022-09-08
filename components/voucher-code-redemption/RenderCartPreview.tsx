@@ -1,7 +1,7 @@
 import styles from "../../styles/RenderCartPreview/RenderCartPreview.module.css";
 import Image from "next/image";
 import { Product } from "../../pages/types";
-import { VoucherProperties } from "./RenderOrderSummary/types";
+import { VoucherProperties } from "./OrderSummary/types";
 
 type Props = {
   currentProducts: Product[];

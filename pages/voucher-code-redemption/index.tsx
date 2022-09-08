@@ -5,11 +5,11 @@ import { MetaProperties } from "../../components/MetaProperties/Meta";
 import RenderCartPreview from "../../components/voucher-code-redemption/RenderCartPreview";
 import { Product, Products } from "../types";
 import { GetStaticProps } from "next";
-import RenderOrderSummary from "../../components/voucher-code-redemption/RenderOrderSummary/RenderOrderSummary";
+import RenderOrderSummary from "../../components/voucher-code-redemption/OrderSummary/OrderSummary";
 import Footer from "../../components/Footer/Footer";
 import { useEffect, useState } from "react";
 import { getCartAndVoucherFromSessionStorage } from "../../utils/voucher-code-redemption/sessionStorage";
-import { VoucherProperties } from "../../components/voucher-code-redemption/RenderOrderSummary/types";
+import { VoucherProperties } from "../../components/voucher-code-redemption/OrderSummary/types";
 import { filterZeroQuantityProducts } from "../../utils/filterZeroQuantityProducts";
 import { defaultProducts } from "../../utils/defaultProducts";
 
