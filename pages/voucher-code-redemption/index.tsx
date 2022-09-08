@@ -2,8 +2,8 @@ import styles from "../../styles/CartAndCheckout.module.css";
 import Nav from "../../components/Nav/Nav";
 import Link from "next/link";
 import { MetaProperties } from "../../components/MetaProperties/Meta";
-import RenderCartPreview from "../../components/voucher-code-redemption/RenderCartPreview/RenderCartPreview";
-import { EachProduct, Products } from "../types";
+import RenderCartPreview from "../../components/voucher-code-redemption/RenderCartPreview";
+import { Product, Products } from "../types";
 import { GetStaticProps } from "next";
 import RenderOrderSummary from "../../components/voucher-code-redemption/RenderOrderSummary/RenderOrderSummary";
 import Footer from "../../components/Footer/Footer";
@@ -14,7 +14,7 @@ import { filterZeroQuantityProducts } from "../../utils/filterZeroQuantityProduc
 import { defaultProducts } from "../../utils/defaultProducts";
 
 const Cart = ({ products }: Products) => {
-  const [currentProducts, setCurrentProducts] = useState<EachProduct[]>([]);
+  const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
   const [voucherCodeValue, setVoucherCodeValue] = useState<string>("");
   const [voucherProperties, setVoucherProperties] =
     useState<VoucherProperties>();
@@ -32,7 +32,7 @@ const Cart = ({ products }: Products) => {
 
   const validateVoucher = async (
     voucherCode: string,
-    currentProducts: EachProduct[]
+    currentProducts: Product[]
   ) => {
     if (currentProducts.reduce((a, b) => a + b.quantity, 0) <= 0) return;
     const { filteredProducts } = filterZeroQuantityProducts(currentProducts);
@@ -42,7 +42,7 @@ const Cart = ({ products }: Products) => {
       {
         method: "POST",
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ voucherCode, filteredProducts }),
