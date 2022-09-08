@@ -9,9 +9,7 @@ export type Product = {
   id: number;
 };
 
-export type Products = {
-  products: Product[];
-};
+export type Products = Product[];
 
 export type Voucher = {
   object: StackableRedeemableObject,

@@ -13,7 +13,11 @@ import { filterZeroQuantityProducts } from "../../utils/filterZeroQuantityProduc
 import { filterPromotionTierFromVouchers } from "../../utils/filterPromotionTierFromVouchers";
 import { GetStaticProps } from "next";
 
-const Cart = ({ products }: Products) => {
+type Props = {
+  products: Products
+}
+
+const Cart = ({ products }: Props) => {
   const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
   const [voucherCodeValue, setVoucherCodeValue] = useState<string>("");
   const [vouchersProperties, setVouchersProperties] =
