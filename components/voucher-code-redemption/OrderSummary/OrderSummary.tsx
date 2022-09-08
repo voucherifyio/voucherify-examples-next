@@ -121,7 +121,7 @@ const OrderSummary = ({
         </div>
         <h4 className={styles.discountPriceHolder}>
           All Your Discounts:
-          <span id={styles.allDiscounts}>{`${
+          <span className={styles.allDiscounts}>{`${
             voucherProperties?.discount
               ? `$${(voucherProperties.discount / 100).toFixed(2)}`
               : "n/a"
@@ -139,7 +139,7 @@ const OrderSummary = ({
         </h4>
       </div>
       <button
-        id={styles.checkoutButton}
+        className={styles.checkoutButton}
         onClick={(e) => {
           if (
             !voucherProperties?.code ||

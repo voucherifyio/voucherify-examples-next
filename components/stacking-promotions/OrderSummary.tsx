@@ -132,7 +132,7 @@ const OrderSummary = ({
         </div>
         <h4 className={styles.discountPriceHolder}>
           All Your Discounts:
-          <span id={styles.allDiscounts}>
+          <span className={styles.allDiscounts}>
             {vouchersProperties?.allDiscount
               ? `$${(
                   (vouchersProperties?.allDiscount -
@@ -156,7 +156,7 @@ const OrderSummary = ({
         </h4>
       </div>
       <button
-        id={styles.checkoutButton}
+        className={styles.checkoutButton}
         onClick={(e) => {
           if (currentProducts.reduce((a, b) => a + b.quantity, 0) <= 0) {
             e.preventDefault();
