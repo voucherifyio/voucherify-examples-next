@@ -11,12 +11,11 @@ type Props = {
 const Discounts = ({ products, vouchersProperties }: Props) => {
   const sumGrandTotal = (products: Product[]) => {
     const subtotal = sumTotalPrice(products);
-    const promotions =
-      (vouchersProperties?.allDiscount -
-        vouchersProperties?.itemsDiscountAmount) /
-        100 ||
-      vouchersProperties?.allDiscount / 100 - 20 ||
-      0;
+    const promotions = vouchersProperties
+      ? (vouchersProperties?.allDiscount -
+          vouchersProperties?.itemsDiscountAmount) /
+          100 || vouchersProperties?.allDiscount / 100 - 20
+      : 0;
     const grandTotal = parseFloat(subtotal) - promotions;
     return grandTotal;
   };
@@ -43,11 +42,12 @@ const Discounts = ({ products, vouchersProperties }: Props) => {
         <p>Value</p>
         <span>
           $
-          {(
-            (vouchersProperties?.allDiscount -
-              vouchersProperties?.itemsDiscountAmount) /
-              100 || vouchersProperties?.allDiscount / 100
-          ).toFixed(2)}
+          {vouchersProperties &&
+            (
+              (vouchersProperties?.allDiscount -
+                vouchersProperties?.itemsDiscountAmount) /
+                100 || vouchersProperties?.allDiscount / 100
+            ).toFixed(2)}
         </span>
       </div>
       <div className={styles.summedPrices}>
@@ -59,11 +59,12 @@ const Discounts = ({ products, vouchersProperties }: Props) => {
           <p>All your discounts</p>
           <span>
             $
-            {(
-              (vouchersProperties?.allDiscount -
-                vouchersProperties?.itemsDiscountAmount) /
-                100 || vouchersProperties?.allDiscount / 100
-            ).toFixed(2)}
+            {vouchersProperties &&
+              (
+                (vouchersProperties?.allDiscount -
+                  vouchersProperties?.itemsDiscountAmount) /
+                  100 || vouchersProperties?.allDiscount / 100
+              ).toFixed(2)}
           </span>
         </div>
         <div className={styles.shipping}>
