@@ -1,20 +1,20 @@
 import styles from "../../styles/CartAndCheckout.module.css";
-import { EachProduct, Products, Voucher } from "../types";
+import { Product, Products, Voucher, VouchersProperties } from "../types";
 import { defaultProducts } from "../../utils/defaultProducts";
 import { useEffect, useState } from "react";
 import { MetaProperties } from "../../components/MetaProperties/Meta";
 import Nav from "../../components/Nav/Nav";
 import Link from "next/link";
 import Footer from "../../components/Footer/Footer";
-import RenderCartPreview from "../../components/stacking-promotions/RenderCartPreview/RenderCartPreview";
+import RenderCartPreview from "../../components/stacking-promotions/RenderCartPreview";
 import { getCartAndVoucherFromSessionStorage } from "../../utils/stacking-promotions/sessionStorage";
-import RenderOrderSummary from "../../components/stacking-promotions/RenderOrderSummary/RenderOrderSummary";
+import RenderOrderSummary from "../../components/stacking-promotions/RenderOrderSummary";
 import { filterZeroQuantityProducts } from "../../utils/filterZeroQuantityProducts";
-import { VouchersProperties } from "../types";
 import { filterPromotionTierFromVouchers } from "../../utils/filterPromotionTierFromVouchers";
+import { GetStaticProps } from "next";
 
 const Cart = ({ products }: Products) => {
-  const [currentProducts, setCurrentProducts] = useState<EachProduct[]>([]);
+  const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
   const [voucherCodeValue, setVoucherCodeValue] = useState<string>("");
   const [vouchersProperties, setVouchersProperties] =
     useState<VouchersProperties>();
@@ -29,25 +29,35 @@ const Cart = ({ products }: Products) => {
     storageProducts
       ? setCurrentProducts(storageProducts)
       : setCurrentProducts(products);
-    if (vouchersProperties.redeemables?.length) {
+    if (vouchersProperties?.redeemables?.length) {
       setVouchersProperties(vouchersProperties);
       setRedeemables(vouchersProperties.redeemables);
     }
   }, [products]);
 
-  const validatePromotionTier = async (
-    currentProducts: EachProduct[],
+  const validateVouchers = async (
+    currentProducts: Product[],
     voucherCodeValue: string,
     redeemables: Voucher[]
   ) => {
+    const vouchersWithoutDuplicatedPromoTiers = await validatePromotionTier(
+      currentProducts,
+      redeemables
+    );
+    await validateStackable(
+      currentProducts,
+      voucherCodeValue,
+      vouchersWithoutDuplicatedPromoTiers
+    );
+  };
+
+  const validatePromotionTier = async (
+    currentProducts: Product[],
+    redeemables: Voucher[]
+  ) => {
     setIsActive(true);
-    if (currentProducts.reduce((a, b) => a + b.quantity, 0) <= 0) {
-      setVouchersProperties(undefined);
-      setRedeemables([]);
-      setIsActive(false);
-      return;
-    }
-    redeemables = filterPromotionTierFromVouchers(redeemables);
+    const vouchersWithoutDuplicatedPromoTiers =
+      filterPromotionTierFromVouchers(redeemables);
     const { filteredProducts } = filterZeroQuantityProducts(currentProducts);
     const response = await fetch(
       process.env.NEXT_PUBLIC_BACKEND_URL +
@@ -64,24 +74,31 @@ const Cart = ({ products }: Products) => {
     const data = await response.json();
     if (data.length) {
       const { object, id } = await data[0];
-      redeemables?.unshift({ object: object, id: id });
-    } else {
+      vouchersWithoutDuplicatedPromoTiers?.unshift({ object: object, id: id });
       setIsActive(false);
-      return;
+      return vouchersWithoutDuplicatedPromoTiers;
     }
-    await validateStackable(currentProducts, voucherCodeValue, redeemables);
-    setIsActive(false);
+    return data;
   };
 
   const validateStackable = async (
-    currentProducts: EachProduct[],
+    currentProducts: Product[],
     voucherCodeValue: string,
-    redeemables: Voucher[]
+    vouchersWithoutDuplicatedPromoTiers: Voucher[]
   ) => {
-    console.log(redeemables);
+    if (
+      currentProducts.reduce((a, b) => a + b.quantity, 0) <= 0 ||
+      !vouchersWithoutDuplicatedPromoTiers.length
+    ) {
+      setVouchersProperties(undefined);
+      setRedeemables([]);
+      setIsActive(false);
+      return;
+    }
     const { filteredProducts } = filterZeroQuantityProducts(currentProducts);
+    const newVouchers = [...vouchersWithoutDuplicatedPromoTiers];
     voucherCodeValue &&
-      redeemables?.push({ object: "voucher", id: voucherCodeValue });
+      newVouchers?.push({ object: "voucher", id: voucherCodeValue });
     const response = await fetch(
       process.env.NEXT_PUBLIC_BACKEND_URL +
         "/api/stacking-promotions/validateStackable",
@@ -92,7 +109,7 @@ const Cart = ({ products }: Products) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          redeemables,
+          redeemables: newVouchers,
           filteredProducts,
         }),
       }
@@ -136,9 +153,9 @@ const Cart = ({ products }: Products) => {
           <RenderCartPreview
             currentProducts={currentProducts}
             setCurrentProducts={setCurrentProducts}
-            validatePromotionTier={validatePromotionTier}
             redeemables={redeemables}
             isActive={isActive}
+            validateVouchers={validateVouchers}
           />
           <RenderOrderSummary
             currentProducts={currentProducts}
@@ -150,7 +167,7 @@ const Cart = ({ products }: Products) => {
             setInputError={setInputError}
             inputError={inputError}
             redeemables={redeemables}
-            validatePromotionTier={validatePromotionTier}
+            validateVouchers={validateVouchers}
           />
         </section>
         <Footer />
@@ -161,7 +178,7 @@ const Cart = ({ products }: Products) => {
 
 export default Cart;
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       products: defaultProducts,
