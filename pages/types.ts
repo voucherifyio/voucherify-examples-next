@@ -1,6 +1,6 @@
 import { StackableRedeemableObject, StackableRedeemableParams } from "@voucherify/sdk";
 
-export type EachProduct = {
+export type Product = {
   productName: string;
   productDescription: string;
   quantity: number;
@@ -10,7 +10,7 @@ export type EachProduct = {
 };
 
 export type Products = {
-  products: EachProduct[];
+  products: Product[];
 };
 
 export type Voucher = {
