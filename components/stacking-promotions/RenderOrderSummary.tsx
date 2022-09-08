@@ -42,15 +42,14 @@ const RenderOrderSummary = ({
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (currentProducts.reduce((a, b) => a + b.quantity, 0) <= 0) {
       alert("Please add items to basket");
     }
     if (!voucherCodeValue) {
-      e.preventDefault();
       setInputError("Please enter voucher code");
       return;
     }
-    e.preventDefault();
     await validateVouchers(currentProducts, voucherCodeValue, redeemables);
   };
 
