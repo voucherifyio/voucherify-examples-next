@@ -2,7 +2,7 @@ import styles from "../../../styles/RenderOrderSummary/RenderOrderSummary.module
 import Image from "next/image";
 import { sumTotalPrice } from "../../../utils/sumTotalPrice";
 import { Product } from "../../../pages/types";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { VoucherProperties } from "./types";
 import { useRouter } from "next/router";
 import { saveCartAndVoucherInSessionStorage } from "../../../utils/voucher-code-redemption/sessionStorage";
@@ -41,6 +41,18 @@ const RenderOrderSummary = ({
     setVoucherCodeValue((e.target as HTMLInputElement).value);
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (currentProducts.reduce((a, b) => a + b.quantity, 0) <= 0) {
+      alert("Please add items to basket");
+    }
+    if (!voucherCodeValue) {
+      setInputError("Please enter voucher code");
+      return false;
+    }
+    validateVoucher(voucherCodeValue as string, currentProducts);
+  };
+
   const sumTotalPriceWithDiscount = (
     voucherProperties: VoucherProperties,
     currentProducts: Product[]
@@ -70,16 +82,7 @@ const RenderOrderSummary = ({
           <form
             className={styles.voucherCodeForm}
             onSubmit={(e) => {
-              if (currentProducts.reduce((a, b) => a + b.quantity, 0) <= 0) {
-                alert("Please add items to basket");
-              }
-              if (!voucherCodeValue) {
-                e.preventDefault();
-                setInputError("Please enter voucher code");
-                return false;
-              }
-              e.preventDefault();
-              validateVoucher(voucherCodeValue as string, currentProducts);
+              handleSubmit(e);
             }}
           >
             <input
