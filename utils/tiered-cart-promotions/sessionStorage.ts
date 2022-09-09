@@ -6,24 +6,24 @@ export const saveCartAndVoucherInSessionStorage = (
   products: Product[]
 ) => {
   window.sessionStorage.setItem(
-    "vcr-voucherProperties",
+    "tcp-voucherProperties",
     JSON.stringify(voucherProperties)
   );
-  window.sessionStorage.setItem("vcr-products", JSON.stringify(products));
+  window.sessionStorage.setItem("tcp-products", JSON.stringify(products));
 };
 
 export const getCartAndVoucherFromSessionStorage = () => {
-  const productsFromSessionStorage: Product[] = JSON.parse(
-    sessionStorage.getItem("vcr-products") || "[]"
+  const productsFromSessionStorage = JSON.parse(
+    sessionStorage.getItem("tcp-products") || "[]"
   );
-  const voucherPropertiesFromSessionStorage: VoucherProperties = JSON.parse(
-    sessionStorage.getItem("vcr-voucherProperties") || "{}"
+  const voucherPropertiesFromSessionStorage = JSON.parse(
+    sessionStorage.getItem("tcp-voucherProperties") || "{}"
   );
   return {
     storageProducts:
       productsFromSessionStorage.length && productsFromSessionStorage,
     voucherProperties:
-      voucherPropertiesFromSessionStorage?.code &&
+      voucherPropertiesFromSessionStorage &&
       voucherPropertiesFromSessionStorage,
   };
 };
