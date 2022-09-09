@@ -1,8 +1,8 @@
-import { EachProduct } from "../pages/voucher-code-redemption/types";
+import { Product } from "../pages/types";
 
-export const sumTotalPrice = (products: EachProduct[]) => {
+export const sumTotalPrice = (products: Product[]) => {
   return products
-    .map((product: EachProduct) => {
+    ?.map((product: Product) => {
       return product.price * product.quantity;
     })
     .reduce((sum: number, product: number) => sum + product, 0)

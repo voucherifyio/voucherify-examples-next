@@ -1,9 +1,9 @@
-import { VoucherProperties } from "../components/voucher-code-redemption/RenderOrderSummary/types";
-import { EachProduct } from "../pages/voucher-code-redemption/types";
+import { VoucherProperties } from "../../components/voucher-code-redemption/OrderSummary/types";
+import { Product } from "../../pages/types";
 
 export const saveCartAndVoucherInSessionStorage = (
   voucherProperties: VoucherProperties,
-  products: EachProduct[]
+  products: Product[]
 ) => {
   window.sessionStorage.setItem(
     "vcr-voucherProperties",
@@ -13,10 +13,10 @@ export const saveCartAndVoucherInSessionStorage = (
 };
 
 export const getCartAndVoucherFromSessionStorage = () => {
-  const productsFromSessionStorage = JSON.parse(
+  const productsFromSessionStorage: Product[] = JSON.parse(
     sessionStorage.getItem("vcr-products") || "[]"
   );
-  const voucherPropertiesFromSessionStorage = JSON.parse(
+  const voucherPropertiesFromSessionStorage: VoucherProperties = JSON.parse(
     sessionStorage.getItem("vcr-voucherProperties") || "{}"
   );
   return {

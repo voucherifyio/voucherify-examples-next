@@ -1,49 +1,57 @@
-import styles from "./RenderOrderSummary.module.css";
+import styles from "../../../styles/OrderSummary/OrderSummary.module.css";
 import Image from "next/image";
 import { sumTotalPrice } from "../../../utils/sumTotalPrice";
-import { EachProduct } from "../../../pages/voucher-code-redemption/types";
-import { ChangeEvent, useState } from "react";
+import { Product } from "../../../pages/types";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { VoucherProperties } from "./types";
 import { useRouter } from "next/router";
-import { saveCartAndVoucherInSessionStorage } from "../../../utils/localStorage";
+import { saveCartAndVoucherInSessionStorage } from "../../../utils/voucher-code-redemption/sessionStorage";
 
 type Props = {
-  currentProducts: EachProduct[];
+  currentProducts: Product[];
   setVoucherCodeValue: (voucherCodeValue: string) => void;
   voucherCodeValue: string;
-  setVoucherProperties: (voucherProperties: VoucherProperties) => void;
   voucherProperties: VoucherProperties;
-  setError: (error: string) => void;
   error: string;
-  setInputError: (inputError: string) => void;
+  onInputError: (inputError: string) => void;
   inputError: string;
-  validateVoucher: (
+  onVoucherCodeSubmit: (
     voucherCodeValue: string,
-    currentProducts: EachProduct[]
+    currentProducts: Product[]
   ) => unknown;
 };
 
-const RenderOrderSummary = ({
+const OrderSummary = ({
   currentProducts,
   setVoucherCodeValue,
   voucherCodeValue,
-  setVoucherProperties,
   voucherProperties,
-  setError,
   error,
-  setInputError,
+  onInputError,
   inputError,
-  validateVoucher,
+  onVoucherCodeSubmit,
 }: Props) => {
   const router = useRouter();
 
-  const getInputValue = (e: ChangeEvent) => {
+  const setVoucherCode = (e: ChangeEvent) => {
     setVoucherCodeValue((e.target as HTMLInputElement).value);
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (currentProducts.reduce((a, b) => a + b.quantity, 0) <= 0) {
+      alert("Please add items to basket");
+    }
+    if (!voucherCodeValue) {
+      onInputError("Please enter voucher code");
+      return false;
+    }
+    onVoucherCodeSubmit(voucherCodeValue, currentProducts);
   };
 
   const sumTotalPriceWithDiscount = (
     voucherProperties: VoucherProperties,
-    currentProducts: EachProduct[]
+    currentProducts: Product[]
   ) => {
     const promotions = voucherProperties?.discount / 100 || 0;
     const totalPrice = sumTotalPrice(currentProducts);
@@ -70,16 +78,7 @@ const RenderOrderSummary = ({
           <form
             className={styles.voucherCodeForm}
             onSubmit={(e) => {
-              if (currentProducts.reduce((a, b) => a + b.quantity, 0) <= 0) {
-                alert("Please add items to basket")
-              }
-              if (!voucherCodeValue) {
-                e.preventDefault();
-                setInputError("Please enter voucher code");
-                return false;
-              }
-              e.preventDefault();
-              validateVoucher(voucherCodeValue as string, currentProducts);
+              handleSubmit(e);
             }}
           >
             <input
@@ -87,7 +86,7 @@ const RenderOrderSummary = ({
               placeholder="Enter your code"
               id={styles.voucherCode}
               value={voucherCodeValue}
-              onChange={(e) => getInputValue(e)}
+              onChange={(e) => setVoucherCode(e)}
             />
             <button id={styles.checkVoucherCode}>
               <Image
@@ -107,7 +106,11 @@ const RenderOrderSummary = ({
           {voucherProperties?.code && (
             <div className={styles.promotionHolder}>
               <h5>{voucherProperties?.code}</h5>
-              <div>{`${voucherProperties.discount ? `$${(voucherProperties?.discount / 100).toFixed(2)}` : "Free shipping"}`}</div>
+              <div>{`${
+                voucherProperties.discount
+                  ? `$${(voucherProperties?.discount / 100).toFixed(2)}`
+                  : "Free shipping"
+              }`}</div>
             </div>
           )}
           {error && (
@@ -118,7 +121,7 @@ const RenderOrderSummary = ({
         </div>
         <h4 className={styles.discountPriceHolder}>
           All Your Discounts:
-          <span id={styles.allDiscounts}>{`${
+          <span className={styles.allDiscounts}>{`${
             voucherProperties?.discount
               ? `$${(voucherProperties.discount / 100).toFixed(2)}`
               : "n/a"
@@ -129,14 +132,14 @@ const RenderOrderSummary = ({
           <span id={styles.grandTotal}>
             $
             {sumTotalPriceWithDiscount(
-              voucherProperties as VoucherProperties,
+              voucherProperties,
               currentProducts
             ).toFixed(2)}
           </span>
         </h4>
       </div>
       <button
-        id={styles.checkoutButton}
+        className={styles.checkoutButton}
         onClick={(e) => {
           if (
             !voucherProperties?.code ||
@@ -159,4 +162,4 @@ const RenderOrderSummary = ({
   );
 };
 
-export default RenderOrderSummary;
+export default OrderSummary;

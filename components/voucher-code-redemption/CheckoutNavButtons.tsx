@@ -1,23 +1,23 @@
-import styles from "../../FormPreview/FormPreview.module.css";
+import styles from "../../styles/FormPreview/FormPreview.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import { EachProduct } from "../../../pages/voucher-code-redemption/types";
-import { VoucherProperties } from "../RenderOrderSummary/types";
-import { filterZeroQuantityProducts } from "../../../utils/filterZeroQuantityProducts";
+import { Product } from "../../pages/types";
+import { VoucherProperties } from "./OrderSummary/types";
+import { filterZeroQuantityProducts } from "../../utils/filterZeroQuantityProducts";
 import { useState } from "react";
 
 type Props = {
-  products: EachProduct[];
+  currentProducts: Product[];
   voucherProperties: VoucherProperties;
 };
 
-const CheckoutNavButtons = ({ products, voucherProperties }: Props) => {
+const CheckoutNavButtons = ({ currentProducts, voucherProperties }: Props) => {
   const [resultMessage, setResultMessage] = useState<string>("");
   const [error, setError] = useState<string>("");
 
   const redeemVoucher = async (
     voucherCode: string,
-    currentProducts: EachProduct[]
+    currentProducts: Product[]
   ) => {
     const { filteredProducts } = filterZeroQuantityProducts(currentProducts);
     const response = await fetch(
@@ -46,7 +46,7 @@ const CheckoutNavButtons = ({ products, voucherProperties }: Props) => {
       <button
         onClick={(e) => {
           e.preventDefault();
-          redeemVoucher(voucherProperties.code, products);
+          redeemVoucher(voucherProperties?.code, currentProducts);
           sessionStorage.clear();
         }}
       >

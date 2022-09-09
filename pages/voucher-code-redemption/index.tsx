@@ -2,19 +2,19 @@ import styles from "../../styles/CartAndCheckout.module.css";
 import Nav from "../../components/Nav/Nav";
 import Link from "next/link";
 import { MetaProperties } from "../../components/MetaProperties/Meta";
-import RenderCartPreview from "../../components/voucher-code-redemption/RenderCartPreview/RenderCartPreview";
-import { EachProduct, Products } from "./types";
+import RenderCartPreview from "../../components/voucher-code-redemption/CartPreview";
+import { Product, Products } from "../types";
 import { GetStaticProps } from "next";
-import RenderOrderSummary from "../../components/voucher-code-redemption/RenderOrderSummary/RenderOrderSummary";
+import OrderSummary from "../../components/voucher-code-redemption/OrderSummary/OrderSummary";
 import Footer from "../../components/Footer/Footer";
 import { useEffect, useState } from "react";
-import { getCartAndVoucherFromSessionStorage } from "../../utils/localStorage";
-import { VoucherProperties } from "../../components/voucher-code-redemption/RenderOrderSummary/types";
+import { getCartAndVoucherFromSessionStorage } from "../../utils/voucher-code-redemption/sessionStorage";
+import { VoucherProperties } from "../../components/voucher-code-redemption/OrderSummary/types";
 import { filterZeroQuantityProducts } from "../../utils/filterZeroQuantityProducts";
 import { defaultProducts } from "../../utils/defaultProducts";
 
 const Cart = ({ products }: Products) => {
-  const [currentProducts, setCurrentProducts] = useState<EachProduct[]>([]);
+  const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
   const [voucherCodeValue, setVoucherCodeValue] = useState<string>("");
   const [voucherProperties, setVoucherProperties] =
     useState<VoucherProperties>();
@@ -24,15 +24,13 @@ const Cart = ({ products }: Products) => {
   useEffect(() => {
     const { storageProducts, voucherProperties } =
       getCartAndVoucherFromSessionStorage();
-    storageProducts
-      ? setCurrentProducts(storageProducts)
-      : setCurrentProducts(products);
+    setCurrentProducts(storageProducts || products);
     voucherProperties && setVoucherProperties(voucherProperties);
   }, [products]);
 
   const validateVoucher = async (
     voucherCode: string,
-    currentProducts: EachProduct[]
+    currentProducts: Product[]
   ) => {
     if (currentProducts.reduce((a, b) => a + b.quantity, 0) <= 0) return;
     const { filteredProducts } = filterZeroQuantityProducts(currentProducts);
@@ -82,19 +80,17 @@ const Cart = ({ products }: Products) => {
             setCurrentProducts={setCurrentProducts}
             setVoucherCodeValue={setVoucherCodeValue}
             voucherProperties={voucherProperties as VoucherProperties}
-            validateVoucher={validateVoucher}
+            onProductsQuantityChange={validateVoucher}
           />
-          <RenderOrderSummary
+          <OrderSummary
             currentProducts={currentProducts}
             setVoucherCodeValue={setVoucherCodeValue}
             voucherCodeValue={voucherCodeValue}
-            setVoucherProperties={setVoucherProperties}
             voucherProperties={voucherProperties as VoucherProperties}
-            setError={setError}
             error={error}
-            setInputError={setInputError}
+            onInputError={setInputError}
             inputError={inputError}
-            validateVoucher={validateVoucher}
+            onVoucherCodeSubmit={validateVoucher}
           />
         </section>
         <Footer />

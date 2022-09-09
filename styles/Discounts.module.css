@@ -4,10 +4,6 @@
     color: black;
 }
 
-.discounts h5 {
-    margin: 32px 0 30px;
-}
-
 .discountTitle {
     display: flex;
     justify-content: space-between;
@@ -16,7 +12,14 @@
     margin-top: 30px;
 }
 
-.voucher {
+.discounts .vouchers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 32px 0 30px;
+}
+
+.discounts .voucher {
     display: flex;
     justify-content: center;
     align-items: center;

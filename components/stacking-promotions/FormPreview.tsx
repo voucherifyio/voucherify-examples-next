@@ -1,15 +1,15 @@
-import styles from "./FormPreview.module.css";
+import styles from "../../styles/FormPreview/FormPreview.module.css";
 import Image from "next/image";
-import CheckoutNavButtons from "../voucher-code-redemption/CheckoutNavButtons/CheckoutNavButtons";
-import { EachProduct } from "../../pages/voucher-code-redemption/types";
-import { VoucherProperties } from "../voucher-code-redemption/RenderOrderSummary/types";
+import { Product } from "../../pages/types";
+import { VouchersProperties } from "../../pages/types";
+import CheckoutNavButtons from "./CheckoutNavButtons";
 
 type Props = {
-  products: EachProduct[];
-  voucherProperties: VoucherProperties;
+  currentProducts: Product[];
+  vouchersProperties: VouchersProperties;
 };
 
-const FormPreview = ({ products, voucherProperties }: Props) => {
+const FormPreview = ({ currentProducts, vouchersProperties }: Props) => {
   return (
     <div className={styles.personalInformation}>
       <nav className={styles.navWrapper}>
@@ -98,8 +98,8 @@ const FormPreview = ({ products, voucherProperties }: Props) => {
           </div>
         </div>
         <CheckoutNavButtons
-          products={products}
-          voucherProperties={voucherProperties as VoucherProperties}
+          currentProducts={currentProducts}
+          vouchersProperties={vouchersProperties}
         />
       </form>
     </div>
