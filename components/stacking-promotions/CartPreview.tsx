@@ -1,6 +1,7 @@
 import styles from "../../styles/CartPreview/CartPreview.module.css";
 import Image from "next/image";
 import { Product, Voucher } from "../../pages/types";
+import { useEffect } from "react";
 
 type Props = {
   currentProducts: Product[];
@@ -21,19 +22,32 @@ const RenderCartPreview = ({
   isActive,
   onProductsQuantityChange,
 }: Props) => {
-  const products = [...currentProducts];
+  useEffect(() => {
+    onProductsQuantityChange(currentProducts, "", redeemables);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProducts, onProductsQuantityChange]);
 
   const incrementQuantity = async (index: number) => {
-    products[index].quantity++;
-    setCurrentProducts(products);
-    await onProductsQuantityChange(currentProducts, "", redeemables);
+    setCurrentProducts([
+      ...currentProducts.slice(0, index),
+      {
+        ...currentProducts[index],
+        quantity: currentProducts[index].quantity + 1,
+      },
+      ...currentProducts.slice(index + 1),
+    ]);
   };
 
   const decrementQuantity = async (index: number) => {
     if (currentProducts[index].quantity <= 0) return;
-    products[index].quantity--;
-    setCurrentProducts(products);
-    await onProductsQuantityChange(currentProducts, "", redeemables);
+    setCurrentProducts([
+      ...currentProducts.slice(0, index),
+      {
+        ...currentProducts[index],
+        quantity: currentProducts[index].quantity - 1,
+      },
+      ...currentProducts.slice(index + 1),
+    ]);
   };
 
   return (

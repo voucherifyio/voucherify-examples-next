@@ -1,7 +1,7 @@
 import styles from "../../styles/CartAndCheckout.module.css";
 import { Product, Products, Voucher, VouchersProperties } from "../types";
 import { defaultProducts } from "../../utils/defaultProducts";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { MetaProperties } from "../../components/MetaProperties/Meta";
 import Nav from "../../components/Nav/Nav";
 import Link from "next/link";
@@ -37,7 +37,7 @@ const Cart = ({ products }: Props) => {
     }
   }, [products]);
 
-  const validateVouchers = async (
+  const validateVouchers = useCallback(async (
     currentProducts: Product[],
     voucherCodeValue: string,
     redeemables: Voucher[]
@@ -51,7 +51,7 @@ const Cart = ({ products }: Props) => {
       voucherCodeValue,
       vouchersWithoutDuplicatedPromoTiers
     );
-  };
+  }, []);
 
   const validatePromotionTier = async (
     currentProducts: Product[],
