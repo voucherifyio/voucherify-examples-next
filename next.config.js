@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   env: {
-    NEXT_PUBLIC_BACKEND_URL: "https://voucherify-examples-next.herokuapp.com/"
+    NEXT_PUBLIC_BACKEND_HEROKU_URL: "https://voucherify-examples-next.herokuapp.com/"
   }
 }
 
