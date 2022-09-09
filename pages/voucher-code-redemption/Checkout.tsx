@@ -9,7 +9,11 @@ import { Product, Products } from "../types";
 import { GetStaticProps } from "next";
 import { defaultProducts } from "../../utils/defaultProducts";
 
-const Checkout = ({ products }: Products) => {
+type Props = {
+  products: Products
+}
+
+const Checkout = ({ products }: Props) => {
   const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
   const [voucherProperties, setVoucherProperties] =
     useState<VoucherProperties>();
