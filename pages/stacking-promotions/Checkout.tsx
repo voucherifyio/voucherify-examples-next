@@ -9,7 +9,11 @@ import CheckoutSummary from "../../components/stacking-promotions/CheckoutSummar
 import { GetStaticProps } from "next";
 import { defaultProducts } from "../../utils/defaultProducts";
 
-const Checkout = ({ products }: Products) => {
+type Props = {
+  products: Products;
+};
+
+const Checkout = ({ products }: Props) => {
   const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
   const [vouchersProperties, setVouchersProperties] =
     useState<VouchersProperties>();
@@ -17,9 +21,7 @@ const Checkout = ({ products }: Products) => {
   useEffect(() => {
     const { storageProducts, vouchersProperties } =
       getCartAndVoucherFromSessionStorage();
-    storageProducts
-      ? setCurrentProducts(storageProducts)
-      : setCurrentProducts(products);
+    setCurrentProducts(storageProducts || products);
     setVouchersProperties(vouchersProperties);
   }, [products]);
 

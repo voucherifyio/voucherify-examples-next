@@ -10,8 +10,8 @@ import { GetStaticProps } from "next";
 import { defaultProducts } from "../../utils/defaultProducts";
 
 type Props = {
-  products: Products
-}
+  products: Products;
+};
 
 const Checkout = ({ products }: Props) => {
   const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
@@ -21,9 +21,7 @@ const Checkout = ({ products }: Props) => {
   useEffect(() => {
     const { storageProducts, voucherProperties } =
       getCartAndVoucherFromSessionStorage();
-    storageProducts
-      ? setCurrentProducts(storageProducts)
-      : setCurrentProducts(products);
+    setCurrentProducts(storageProducts || products);
     setVoucherProperties(voucherProperties as VoucherProperties);
   }, [products]);
 

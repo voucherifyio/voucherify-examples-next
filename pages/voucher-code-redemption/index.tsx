@@ -13,7 +13,11 @@ import { VoucherProperties } from "../../components/voucher-code-redemption/Orde
 import { filterZeroQuantityProducts } from "../../utils/filterZeroQuantityProducts";
 import { defaultProducts } from "../../utils/defaultProducts";
 
-const Cart = ({ products }: Products) => {
+type Props = {
+  products: Products;
+};
+
+const Cart = ({ products }: Props) => {
   const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
   const [voucherCodeValue, setVoucherCodeValue] = useState<string>("");
   const [voucherProperties, setVoucherProperties] =
