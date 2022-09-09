@@ -1,4 +1,4 @@
-import { Product } from "../pages/types";
+import { Product } from "../components/types";
 
 export const filterZeroQuantityProducts = (currentProducts: Product[]) => {
   const filteredProducts = currentProducts

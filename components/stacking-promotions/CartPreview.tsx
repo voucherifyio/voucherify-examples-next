@@ -1,6 +1,6 @@
 import styles from "../../styles/CartPreview/CartPreview.module.css";
 import Image from "next/image";
-import { Product, Voucher } from "../../pages/types";
+import { Product, Voucher } from "../types";
 import { useEffect } from "react";
 
 type Props = {

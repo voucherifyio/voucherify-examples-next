@@ -1,4 +1,4 @@
-import { Product, Products } from "../../pages/types";
+import { Product } from "../types";
 import styles from "./CheckoutProductsList.module.css";
 import Image from "next/image";
 

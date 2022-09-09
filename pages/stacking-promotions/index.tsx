@@ -1,5 +1,5 @@
 import styles from "../../styles/CartAndCheckout.module.css";
-import { Product, Products, Voucher, VouchersProperties } from "../types";
+import { Product, Products, Voucher, VouchersProperties } from "../../components/types";
 import { defaultProducts } from "../../utils/defaultProducts";
 import { useCallback, useEffect, useState } from "react";
 import { MetaProperties } from "../../components/MetaProperties/Meta";

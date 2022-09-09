@@ -1,7 +1,7 @@
-import { Product } from "../../pages/types";
+import { Product } from "../types";
 import CheckoutProductsList from "../CheckoutProductsList/CheckoutProductsList";
 import styles from "../../styles/CheckoutSummary.module.css";
-import { VouchersProperties } from "../../pages/types";
+import { VouchersProperties } from "../types";
 import Discounts from "./Discounts";
 
 type Props = {

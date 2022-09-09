@@ -1,7 +1,7 @@
 import styles from "../../../styles/OrderSummary/OrderSummary.module.css";
 import Image from "next/image";
 import { sumTotalPrice } from "../../../utils/sumTotalPrice";
-import { Product } from "../../../pages/types";
+import { Product } from "../../types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { VoucherProperties } from "./types";
 import { useRouter } from "next/router";

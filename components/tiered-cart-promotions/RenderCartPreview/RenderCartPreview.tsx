@@ -1,6 +1,6 @@
 import styles from "../../../styles/RenderCartPreview/RenderCartPreview.module.css";
 import Image from "next/image";
-import { Product, Voucher } from "../../../pages/types";
+import { Product, Voucher } from "../../types";
 
 type Props = {
   currentProducts: Product[];

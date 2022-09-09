@@ -1,7 +1,7 @@
 import styles from "../../styles/FormPreview/FormPreview.module.css";
 import Image from "next/image";
 import CheckoutNavButtons from "./CheckoutNavButtons";
-import { Product } from "../../pages/types";
+import { Product } from "../types";
 import { VoucherProperties } from "./OrderSummary/types";
 
 type Props = {

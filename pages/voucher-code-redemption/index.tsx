@@ -3,7 +3,7 @@ import Nav from "../../components/Nav/Nav";
 import Link from "next/link";
 import { MetaProperties } from "../../components/MetaProperties/Meta";
 import RenderCartPreview from "../../components/voucher-code-redemption/CartPreview";
-import { Product, Products } from "../types";
+import { Product, Products } from "../../components/types";
 import { GetStaticProps } from "next";
 import OrderSummary from "../../components/voucher-code-redemption/OrderSummary/OrderSummary";
 import Footer from "../../components/Footer/Footer";

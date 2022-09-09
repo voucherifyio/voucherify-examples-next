@@ -1,5 +1,5 @@
-import { Voucher, VouchersProperties } from "../../pages/types";
-import { Product } from "../../pages/types";
+import { Voucher, VouchersProperties } from "../../components/types";
+import { Product } from "../../components/types";
 
 export const saveCartAndVoucherInSessionStorage = (
   vouchersProperties: VouchersProperties,

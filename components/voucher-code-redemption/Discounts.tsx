@@ -1,4 +1,4 @@
-import { Product } from "../../pages/types";
+import { Product } from "../types";
 import styles from "../../styles/Discounts.module.css";
 import { sumTotalPrice } from "../../utils/sumTotalPrice";
 import { VoucherProperties } from "./OrderSummary/types";

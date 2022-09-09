@@ -1,6 +1,6 @@
 import styles from "../../styles/CartPreview/CartPreview.module.css";
 import Image from "next/image";
-import { Product } from "../../pages/types";
+import { Product } from "../types";
 import { VoucherProperties } from "./OrderSummary/types";
 
 type Props = {

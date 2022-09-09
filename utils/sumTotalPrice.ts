@@ -1,4 +1,4 @@
-import { Product } from "../pages/types";
+import { Product } from "../components/types";
 
 export const sumTotalPrice = (products: Product[]) => {
   return products

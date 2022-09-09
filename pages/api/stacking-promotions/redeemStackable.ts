@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { validateRequestedCart } from "../../../utils/validateRequestedCart";
 import { calculateCartTotalAmount } from "../../../utils/calculateCartTotalAmount";
 import { removeDuplicatedPromoObjects } from "../../../utils/removeDuplicatePromo";
-import { PromotionStackableObj } from "../../types";
+import { PromotionStackableObj } from "../../../components/types";
 import { client } from "../voucherifyClient";
 
 const customer = {

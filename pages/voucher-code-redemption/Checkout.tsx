@@ -5,7 +5,7 @@ import CheckoutSummary from "../../components/voucher-code-redemption/CheckoutSu
 import { VoucherProperties } from "../../components/voucher-code-redemption/OrderSummary/types";
 import styles from "../../styles/CartAndCheckout.module.css";
 import { getCartAndVoucherFromSessionStorage } from "../../utils/voucher-code-redemption/sessionStorage";
-import { Product, Products } from "../types";
+import { Product, Products } from "../../components/types";
 import { GetStaticProps } from "next";
 import { defaultProducts } from "../../utils/defaultProducts";
 

@@ -1,10 +1,10 @@
-import { Product, Voucher } from "../../pages/types";
+import { Product, Voucher } from "../types";
 import styles from "../../styles/OrderSummary/OrderSummary.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { sumTotalPrice } from "../../utils/sumTotalPrice";
 import { ChangeEvent, FormEvent } from "react";
-import { VouchersProperties } from "../../pages/types";
+import { VouchersProperties } from "../types";
 import { saveCartAndVoucherInSessionStorage } from "../../utils/stacking-promotions/sessionStorage";
 
 type Props = {
