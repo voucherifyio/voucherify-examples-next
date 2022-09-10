@@ -11,8 +11,8 @@ Voucherify is an API-centric promotion engine for digital teams. It empowers mar
 ## Voucherify Examples <a id="voucherify-examples"></a>
 Voucherify Examples are examples of integration and use of the Voucherify product.
 
-* [Voucher code redemption](https://voucherify-examples-next.herokuapp.com/stacking-promotions)
-* [Stacking promotions](https://voucherify-examples-next.herokuapp.com/voucher-code-redemption)
+* [Voucher code redemption](https://voucherify-examples-next.herokuapp.com/voucher-code-redemption)
+* [Stacking promotions](https://voucherify-examples-next.herokuapp.com/stacking-promotions)
 
 Check out all our examples in one place!
 
