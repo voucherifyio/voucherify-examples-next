@@ -37,7 +37,7 @@ const Cart = ({ products }: Props) => {
     }
   }, [products]);
 
-  const validateVouchers = useCallback(async (
+  const validateVouchers = async (
     currentProducts: Product[],
     voucherCodeValue: string,
     redeemables: Voucher[]
@@ -51,7 +51,7 @@ const Cart = ({ products }: Props) => {
       voucherCodeValue,
       vouchersWithoutDuplicatedPromoTiers
     );
-  }, []);
+  };
 
   const validatePromotionTier = async (
     currentProducts: Product[],
@@ -123,6 +123,7 @@ const Cart = ({ products }: Props) => {
       return;
     }
     if (data?.redeemables) {
+      console.log("tera", data)
       setRedeemables([
         ...data.redeemables?.map((voucher: Voucher) => {
           return {
