@@ -150,7 +150,7 @@ const OrderSummary = ({
             return false;
           }
           saveCartAndVoucherInSessionStorage(
-            voucherProperties as VoucherProperties,
+            voucherProperties,
             currentProducts
           );
           router.push("/voucher-code-redemption/Checkout");
