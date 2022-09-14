@@ -22,32 +22,31 @@ const RenderCartPreview = ({
   isActive,
   onProductsQuantityChange,
 }: Props) => {
-  useEffect(() => {
-    onProductsQuantityChange(currentProducts, "", redeemables);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentProducts, onProductsQuantityChange]);
-
   const incrementQuantity = async (index: number) => {
-    setCurrentProducts([
+    const newCurrentProducts = [
       ...currentProducts.slice(0, index),
       {
         ...currentProducts[index],
         quantity: currentProducts[index].quantity + 1,
       },
       ...currentProducts.slice(index + 1),
-    ]);
+    ];
+    setCurrentProducts(newCurrentProducts);
+    await onProductsQuantityChange(newCurrentProducts, "", redeemables);
   };
 
   const decrementQuantity = async (index: number) => {
     if (currentProducts[index].quantity <= 0) return;
-    setCurrentProducts([
+    const newCurrentProducts = [
       ...currentProducts.slice(0, index),
       {
         ...currentProducts[index],
         quantity: currentProducts[index].quantity - 1,
       },
       ...currentProducts.slice(index + 1),
-    ]);
+    ];
+    setCurrentProducts(newCurrentProducts)
+    await onProductsQuantityChange(newCurrentProducts, "", redeemables);
   };
 
   return (
