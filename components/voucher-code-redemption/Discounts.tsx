@@ -5,18 +5,14 @@ import { VoucherProperties } from "./OrderSummary/types";
 
 type Props = {
   currentProducts: Product[];
-  voucherProperties: VoucherProperties;
+  voucherProperties: VoucherProperties | undefined;
 };
 
 const Discounts = ({ currentProducts, voucherProperties }: Props) => {
   const shippingValue = voucherProperties?.code === "FREE-SHIPPING" ? 0 : 20;
-
-  const sumGrandTotal = (products: Product[]) => {
-    const subtotal = sumTotalPrice(products);
-    const promotions = voucherProperties?.discount / 100 || 0;
-    const grandTotal = parseFloat(subtotal) - promotions + shippingValue;
-    return grandTotal;
-  };
+  const promotions = voucherProperties?.discount
+    ? voucherProperties?.discount / 100
+    : 0;
 
   return (
     <div className={styles.discounts}>
@@ -30,7 +26,9 @@ const Discounts = ({ currentProducts, voucherProperties }: Props) => {
       </div>
       <div className={styles.valueProp}>
         <p>Value</p>
-        <span>${voucherProperties?.discount / 100}</span>
+        <span>
+          ${voucherProperties?.discount ? voucherProperties?.discount / 100 : 0}
+        </span>
       </div>
       <div className={styles.summedPrices}>
         <div className={styles.subtotal}>
@@ -39,7 +37,12 @@ const Discounts = ({ currentProducts, voucherProperties }: Props) => {
         </div>
         <div className={styles.allDiscounts}>
           <p>All your discounts</p>
-          <span>${voucherProperties?.discount / 100}</span>
+          <span>
+            $
+            {voucherProperties?.discount
+              ? voucherProperties?.discount / 100
+              : 0}
+          </span>
         </div>
         <div className={styles.shipping}>
           <p>Shipping</p>
@@ -47,7 +50,12 @@ const Discounts = ({ currentProducts, voucherProperties }: Props) => {
         </div>
         <div className={styles.grandTotal}>
           <p>Grand total</p>
-          <span>${sumGrandTotal(currentProducts).toFixed(2)}</span>
+          <span>
+            $
+            {parseFloat(sumTotalPrice(currentProducts)) -
+              promotions +
+              shippingValue}
+          </span>
         </div>
       </div>
     </div>
