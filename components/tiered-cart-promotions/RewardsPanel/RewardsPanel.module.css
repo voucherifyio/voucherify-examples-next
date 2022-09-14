@@ -73,10 +73,6 @@
     margin-left: 153px;
 }
 
-.progressBarNumbers span:nth-of-type(5) {
-    margin-left: 161px;
-}
-
 .progressBarWrapper .progressBarContent {
     position: relative;
     display: flex;
@@ -113,5 +109,5 @@
     width: 0px;
     height: 100%;
     background-color: #001246;
-    border-radius: 0 5px 5px 0;
+    border-radius: 5px 5px 5px 5px;
 }
