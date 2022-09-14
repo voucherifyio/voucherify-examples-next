@@ -1,54 +1,58 @@
 import styles from "../../styles/CartPreview/CartPreview.module.css";
 import Image from "next/image";
-import { Product, Voucher } from "../types";
+import { Product, PromotionTier, Voucher } from "../types";
 import RewardsPanel from "./RewardsPanel/RewardsPanel";
 import { useEffect } from "react";
 
 type Props = {
   currentProducts: Product[];
   setCurrentProducts: (products: Product[]) => void;
-  redeemables: Voucher[];
   onProductsQuantityChange: (currentProducts: Product[]) => Promise<void>;
+  isActive: boolean;
+  vouchersProperties: PromotionTier[];
 };
 
 const RenderCartPreview = ({
   currentProducts,
   setCurrentProducts,
-  redeemables,
   onProductsQuantityChange,
+  isActive,
+  vouchersProperties,
 }: Props) => {
-
-  useEffect(() => {
-    onProductsQuantityChange(currentProducts);
-  }, [currentProducts, onProductsQuantityChange]);
-
-  const incrementQuantity = (index: number) => {
-    setCurrentProducts([
+  const incrementQuantity = async (index: number) => {
+    const newCurrentProducts = [
       ...currentProducts.slice(0, index),
       {
         ...currentProducts[index],
         quantity: currentProducts[index].quantity + 1,
       },
       ...currentProducts.slice(index + 1),
-    ]);
+    ];
+    setCurrentProducts(newCurrentProducts);
+    await onProductsQuantityChange(newCurrentProducts);
   };
 
-  const decrementQuantity = (index: number) => {
+  const decrementQuantity = async (index: number) => {
     if (currentProducts[index].quantity <= 0) return;
-    setCurrentProducts([
+    const newCurrentProducts = [
       ...currentProducts.slice(0, index),
       {
         ...currentProducts[index],
         quantity: currentProducts[index].quantity - 1,
       },
       ...currentProducts.slice(index + 1),
-    ]);
+    ];
+    setCurrentProducts(newCurrentProducts);
+    await onProductsQuantityChange(newCurrentProducts);
   };
 
   return (
     <div className={styles.cartSummary}>
       <h2>Item summary</h2>
-      <RewardsPanel />
+      <RewardsPanel
+        vouchersProperties={vouchersProperties}
+        currentProducts={currentProducts}
+      />
       <div className={styles.cartSummaryList}>
         {currentProducts.map((product, index) => {
           return (
@@ -69,6 +73,7 @@ const RenderCartPreview = ({
               <div className={styles.countingProducts}>
                 <button
                   className={styles.decrement}
+                  disabled={isActive}
                   onClick={() => decrementQuantity(index)}
                 >
                   -
@@ -81,6 +86,7 @@ const RenderCartPreview = ({
                 />
                 <button
                   className={styles.increment}
+                  disabled={isActive}
                   onClick={() => incrementQuantity(index)}
                 >
                   +
