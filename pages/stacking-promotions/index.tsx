@@ -123,7 +123,6 @@ const Cart = ({ products }: Props) => {
       return;
     }
     if (data?.redeemables) {
-      console.log("tera", data)
       setRedeemables([
         ...data.redeemables?.map((voucher: Voucher) => {
           return {
