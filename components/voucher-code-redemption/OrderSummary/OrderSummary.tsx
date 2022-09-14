@@ -53,7 +53,7 @@ const OrderSummary = ({
     voucherProperties: VoucherProperties,
     currentProducts: Product[]
   ) => {
-    const promotions = voucherProperties?.discount / 100 || 0;
+    const promotions = voucherProperties?.discount ? voucherProperties?.discount / 100 : 0;
     const totalPrice = sumTotalPrice(currentProducts);
     const totalPriceWithDiscount = parseFloat(totalPrice) - promotions;
     return totalPriceWithDiscount <= 0 ? 0 : totalPriceWithDiscount;
