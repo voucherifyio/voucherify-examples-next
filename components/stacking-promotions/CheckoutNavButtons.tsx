@@ -26,7 +26,7 @@ const CheckoutNavButtons = ({ currentProducts, vouchersProperties }: Props) => {
       {
         method: "POST",
         headers: {
-          Accept: "application/json",
+          "Accept": "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ redeemables, filteredProducts }),
