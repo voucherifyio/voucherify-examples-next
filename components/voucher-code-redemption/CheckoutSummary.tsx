@@ -6,7 +6,7 @@ import { VoucherProperties } from "./OrderSummary/types";
 
 type Props = {
   currentProducts: Product[];
-  voucherProperties: VoucherProperties;
+  voucherProperties: VoucherProperties | undefined;
 };
 
 const CheckoutSummary = ({ currentProducts, voucherProperties }: Props) => {
