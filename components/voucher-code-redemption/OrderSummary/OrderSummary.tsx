@@ -53,9 +53,9 @@ const OrderSummary = ({
     voucherProperties: VoucherProperties,
     currentProducts: Product[]
   ) => {
-    const promotions = voucherProperties?.discount / 100 || 0;
+    const promotions = voucherProperties?.discount ? voucherProperties?.discount / 100 : 0;
     const totalPrice = sumTotalPrice(currentProducts);
-    const totalPriceWithDiscount = parseFloat(totalPrice) - promotions;
+    const totalPriceWithDiscount = totalPrice - promotions;
     return totalPriceWithDiscount <= 0 ? 0 : totalPriceWithDiscount;
   };
 
@@ -64,7 +64,7 @@ const OrderSummary = ({
       <h2>Order summary</h2>
       <div className={styles.totalOrderWrapper}>
         <h4>
-          Subtotal:<span>${sumTotalPrice(currentProducts)}</span>
+          Subtotal:<span>${(sumTotalPrice(currentProducts)).toFixed(2)}</span>
         </h4>
         <h4>
           Shipping:<span>Calculated at next step</span>
@@ -150,7 +150,7 @@ const OrderSummary = ({
             return false;
           }
           saveCartAndVoucherInSessionStorage(
-            voucherProperties as VoucherProperties,
+            voucherProperties,
             currentProducts
           );
           router.push("/voucher-code-redemption/Checkout");

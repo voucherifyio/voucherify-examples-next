@@ -1,0 +1,113 @@
+.rewardWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 144px;
+    padding: 20px;
+    background-color: #E5E5E5;
+    border-top: 1px solid #B1B8D0;
+    color: #001246;
+}
+
+.rewardWrapper .rewardTitles {
+    display: flex;
+    width: 410px;
+    justify-content: space-between;
+}
+
+.rewardWrapper h4 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.rewardWrapper span {
+    font-weight: 700;
+}
+
+.rewardWrapper h4, .rewardWrapper .rewardTitles h4 {
+    line-height: 24px;
+    margin: 0;
+    text-align: left;
+}
+
+.rewardWrapper .rewardTitles p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.rewardWrapper .rewardTitles p span {
+    display: flex;
+    margin: 0 10px 0 15px;
+}
+
+.rewardWrapper .progressBarWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 540px;
+    height: 30px;
+}
+
+.progressBarWrapper .progressBarNumbers {
+    display: flex;
+}
+
+.progressBarWrapper .progressBarNumbers span {
+    font-weight: 500;
+    font-size: 10px;
+}
+
+.progressBarNumbers span:nth-of-type(2) {
+    margin-left: 59px;
+}
+
+.progressBarNumbers span:nth-of-type(3) {
+    margin-left: 93px;
+}
+
+.progressBarNumbers span:nth-of-type(4) {
+    margin-left: 153px;
+}
+
+.progressBarWrapper .progressBarContent {
+    position: relative;
+    display: flex;
+    width: 365px;
+    height: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.progressBarContent span {
+    width: 4px;
+    height: 100%;
+    background-color: #E5E5E5;
+    z-index: 2;
+}
+
+.progressBarContent span:nth-of-type(2) {
+    margin-left: 71px;
+}
+
+.progressBarContent span:nth-of-type(3) {
+    margin-left: 106px;
+}
+
+.progressBarContent span:nth-of-type(4) {
+    margin-left: 167px;
+}
+
+.progressBarContent .progressTier {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0px;
+    height: 100%;
+    background-color: #001246;
+    border-radius: 5px 5px 5px 5px;
+}

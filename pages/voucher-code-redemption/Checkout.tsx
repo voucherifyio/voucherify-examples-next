@@ -22,7 +22,7 @@ const Checkout = ({ products }: Props) => {
     const { storageProducts, voucherProperties } =
       getCartAndVoucherFromSessionStorage();
     setCurrentProducts(storageProducts || products);
-    setVoucherProperties(voucherProperties as VoucherProperties);
+    voucherProperties && setVoucherProperties(voucherProperties);
   }, [products]);
 
   return (
@@ -39,7 +39,7 @@ const Checkout = ({ products }: Props) => {
         />
         <CheckoutSummary
           currentProducts={currentProducts}
-          voucherProperties={voucherProperties as VoucherProperties}
+          voucherProperties={voucherProperties}
         />
       </div>
     </>

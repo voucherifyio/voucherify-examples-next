@@ -20,19 +20,32 @@ const RenderCartPreview = ({
   voucherProperties,
   onProductsQuantityChange,
 }: Props) => {
-  const products = [...currentProducts];
 
   const incrementQuantity = (index: number) => {
-    products[index].quantity++;
-    setCurrentProducts(products);
+    const newCurrentProducts = [
+      ...currentProducts.slice(0, index),
+      {
+        ...currentProducts[index],
+        quantity: currentProducts[index].quantity + 1,
+      },
+      ...currentProducts.slice(index + 1),
+    ];
+    setCurrentProducts(newCurrentProducts);
     voucherProperties?.code &&
       onProductsQuantityChange(voucherProperties.code, currentProducts);
   };
 
   const decrementQuantity = (index: number) => {
     if (currentProducts[index].quantity <= 0) return;
-    products[index].quantity--;
-    setCurrentProducts(products);
+    const newCurrentProducts = [
+      ...currentProducts.slice(0, index),
+      {
+        ...currentProducts[index],
+        quantity: currentProducts[index].quantity - 1,
+      },
+      ...currentProducts.slice(index + 1),
+    ];
+    setCurrentProducts(newCurrentProducts)
     voucherProperties?.code &&
       onProductsQuantityChange(voucherProperties.code, currentProducts);
   };

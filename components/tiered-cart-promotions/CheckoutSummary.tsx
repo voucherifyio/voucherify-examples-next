@@ -1,21 +1,20 @@
-import { Product } from "../types";
-import CheckoutProductsList from "../CheckoutProductsList/CheckoutProductsList";
+import { Product, PromotionTier } from "../types";
 import styles from "../../styles/CheckoutSummary.module.css";
+import CheckoutProductsList from "../CheckoutProductsList/CheckoutProductsList";
 import Discounts from "./Discounts";
-import { VoucherProperties } from "./OrderSummary/types";
 
 type Props = {
   currentProducts: Product[];
-  voucherProperties: VoucherProperties | undefined;
+  vouchersProperties: PromotionTier[];
 };
 
-const CheckoutSummary = ({ currentProducts, voucherProperties }: Props) => {
+const CheckoutSummary = ({ currentProducts, vouchersProperties }: Props) => {
   return (
     <div className={styles.checkoutView}>
       <CheckoutProductsList currentProducts={currentProducts} />
       <Discounts
         currentProducts={currentProducts}
-        voucherProperties={voucherProperties}
+        vouchersProperties={vouchersProperties}
       />
     </div>
   );

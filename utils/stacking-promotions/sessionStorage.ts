@@ -1,4 +1,4 @@
-import { Voucher, VouchersProperties } from "../../components/types";
+import { VouchersProperties } from "../../components/types";
 import { Product } from "../../components/types";
 
 export const saveCartAndVoucherInSessionStorage = (
@@ -17,7 +17,7 @@ export const getCartAndVoucherFromSessionStorage = () => {
     sessionStorage.getItem("sp-products") || "[]"
   );
   const vouchersPropertiesFromSessionStorage: VouchersProperties = JSON.parse(
-    sessionStorage.getItem("sp-vouchersProperties") || "{}"
+    sessionStorage.getItem("sp-vouchersProperties") || "[]"
   );
   return {
     storageProducts:

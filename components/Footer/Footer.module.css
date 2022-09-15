@@ -68,6 +68,7 @@
     align-items: flex-start;
     list-style-type: none;
     gap: 10px;
+    padding-inline-start: 40px;
 }
 
 .footerRightSide ul li:first-child {
