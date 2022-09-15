@@ -37,7 +37,7 @@ const Cart = ({ products }: Props) => {
     }
   }, [products]);
 
-  const validateVouchers = useCallback(async (
+  const validateVouchers = async (
     currentProducts: Product[],
     voucherCodeValue: string,
     redeemables: Voucher[]
@@ -51,7 +51,7 @@ const Cart = ({ products }: Props) => {
       voucherCodeValue,
       vouchersWithoutDuplicatedPromoTiers
     );
-  }, []);
+  };
 
   const validatePromotionTier = async (
     currentProducts: Product[],

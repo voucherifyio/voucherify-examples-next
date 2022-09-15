@@ -37,6 +37,7 @@ const CheckoutNavButtons = ({ currentProducts, voucherProperties }: Props) => {
 
     if (response.status !== 200) {
       setError(data.error);
+      return;
     }
     setResultMessage(data.message);
   };

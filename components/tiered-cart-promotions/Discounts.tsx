@@ -1,18 +1,18 @@
-import { Product } from "../types";
+import { Product, PromotionTier } from "../types";
 import styles from "../../styles/Discounts.module.css";
 import { sumTotalPrice } from "../../utils/sumTotalPrice";
-import { VoucherProperties } from "./OrderSummary/types";
 
 type Props = {
   currentProducts: Product[];
-  voucherProperties: VoucherProperties | undefined;
+  vouchersProperties: PromotionTier[];
 };
 
-const Discounts = ({ currentProducts, voucherProperties }: Props) => {
-  const shippingValue = voucherProperties?.code === "FREE-SHIPPING" ? 0 : 20;
-  const promotions = voucherProperties?.discount
-    ? voucherProperties?.discount / 100
-    : 0;
+const Discounts = ({ currentProducts, vouchersProperties }: Props) => {
+  const promotions =
+    vouchersProperties?.reduce(
+      (sum, tier) => sum + tier.total_applied_discount_amount,
+      0
+    ) / 100 || 0;
 
   return (
     <div className={styles.discounts}>
@@ -20,15 +20,17 @@ const Discounts = ({ currentProducts, voucherProperties }: Props) => {
         <p>Discount applied to cart</p>
       </div>
       <div className={styles.vouchers}>
-        <h5 className={styles.voucher}>
-          <span>{voucherProperties?.code}</span>
-        </h5>
+        {vouchersProperties?.map((tier) => {
+          return (
+            <h5 key={tier.id} className={styles.voucher}>
+              <span>{tier.name}</span>
+            </h5>
+          );
+        })}
       </div>
       <div className={styles.valueProp}>
         <p>Value</p>
-        <span>
-          ${voucherProperties?.discount ? voucherProperties?.discount / 100 : 0}
-        </span>
+        <span>${promotions}</span>
       </div>
       <div className={styles.summedPrices}>
         <div className={styles.subtotal}>
@@ -37,24 +39,16 @@ const Discounts = ({ currentProducts, voucherProperties }: Props) => {
         </div>
         <div className={styles.allDiscounts}>
           <p>All your discounts</p>
-          <span>
-            $
-            {voucherProperties?.discount
-              ? voucherProperties?.discount / 100
-              : 0}
-          </span>
+          <span>${promotions}</span>
         </div>
         <div className={styles.shipping}>
           <p>Shipping</p>
-          <span>${shippingValue}</span>
+          <span>$8.99</span>
         </div>
         <div className={styles.grandTotal}>
           <p>Grand total</p>
           <span>
-            $
-            {(sumTotalPrice(currentProducts) -
-              promotions +
-              shippingValue).toFixed(2)}
+            ${(sumTotalPrice(currentProducts) - promotions).toFixed(2)}
           </span>
         </div>
       </div>

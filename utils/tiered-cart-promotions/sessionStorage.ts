@@ -1,29 +1,28 @@
-import { VoucherProperties } from "../../components/voucher-code-redemption/OrderSummary/types";
-import { Product } from "../../pages/types";
+import { Product, PromotionTier } from "../../components/types";
 
 export const saveCartAndVoucherInSessionStorage = (
-  voucherProperties: VoucherProperties,
+  vouchersProperties: PromotionTier[],
   products: Product[]
 ) => {
   window.sessionStorage.setItem(
-    "tcp-voucherProperties",
-    JSON.stringify(voucherProperties)
+    "tcp-vouchersProperties",
+    JSON.stringify(vouchersProperties)
   );
   window.sessionStorage.setItem("tcp-products", JSON.stringify(products));
 };
 
 export const getCartAndVoucherFromSessionStorage = () => {
-  const productsFromSessionStorage = JSON.parse(
+  const productsFromSessionStorage: Product[] = JSON.parse(
     sessionStorage.getItem("tcp-products") || "[]"
   );
-  const voucherPropertiesFromSessionStorage = JSON.parse(
-    sessionStorage.getItem("tcp-voucherProperties") || "{}"
+  const voucherPropertiesFromSessionStorage: PromotionTier[] = JSON.parse(
+    sessionStorage.getItem("tcp-vouchersProperties") || "[]"
   );
   return {
     storageProducts:
       productsFromSessionStorage.length && productsFromSessionStorage,
-    voucherProperties:
-      voucherPropertiesFromSessionStorage &&
+    vouchersProperties:
+      voucherPropertiesFromSessionStorage.length &&
       voucherPropertiesFromSessionStorage,
   };
 };

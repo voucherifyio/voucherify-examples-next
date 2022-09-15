@@ -66,7 +66,7 @@ const OrderSummary = ({
                     vouchersProperties?.itemsDiscountAmount) /
                   100
                 ).toFixed(2)
-              : sumTotalPrice(currentProducts)}
+              : (sumTotalPrice(currentProducts)).toFixed(2)}
           </span>
         </h4>
         <h4>
@@ -151,7 +151,7 @@ const OrderSummary = ({
                   vouchersProperties?.redeemables?.at(-1)?.order!
                     ?.total_amount / 100
                 ).toFixed(2)
-              : sumTotalPrice(currentProducts)}
+              : (sumTotalPrice(currentProducts)).toFixed(2)}
           </span>
         </h4>
       </div>

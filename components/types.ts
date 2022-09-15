@@ -38,3 +38,13 @@ export type VouchersProperties = {
   allDiscount: number,
   redeemables: [Voucher]
 } | undefined
+
+export type PromotionTier = {
+  banner: string,
+  hierarchy: number,
+  id: string,
+  name: string,
+  object: string,
+  productName: string,
+  total_applied_discount_amount: number
+}
