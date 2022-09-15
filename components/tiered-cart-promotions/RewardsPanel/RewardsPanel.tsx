@@ -30,7 +30,7 @@ const RewardsPanel = ({ vouchersProperties, currentProducts }: Props) => {
           return (
             <p key={index}>
               <span>
-                {parseFloat(sumTotalPrice(currentProducts)) >=
+                {sumTotalPrice(currentProducts) >=
                 rewardProperties[index].price ? (
                   <Image
                     src="/reward-achieved.svg"

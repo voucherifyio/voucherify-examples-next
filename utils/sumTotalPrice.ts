@@ -6,5 +6,4 @@ export const sumTotalPrice = (products: Product[]) => {
       return product.price * product.quantity;
     })
     .reduce((sum: number, product: number) => sum + product, 0)
-    .toFixed(2);
 };

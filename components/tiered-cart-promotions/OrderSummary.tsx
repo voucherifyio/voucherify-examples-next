@@ -27,7 +27,7 @@ const OrderSummary = ({
       <div className={styles.totalOrderWrapper}>
         <h4>
           Subtotal:
-          <span>${sumTotalPrice(currentProducts)}</span>
+          <span>${(sumTotalPrice(currentProducts)).toFixed(2)}</span>
         </h4>
         <h4>
           Shipping:<span>Calculated at next step</span>
@@ -88,7 +88,7 @@ const OrderSummary = ({
           Grand total:
           <span id={styles.grandTotal}>
             $
-            {(parseFloat(sumTotalPrice(currentProducts)) - promotions).toFixed(
+            {(sumTotalPrice(currentProducts) - promotions).toFixed(
               2
             )}
           </span>

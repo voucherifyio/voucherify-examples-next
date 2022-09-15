@@ -48,7 +48,7 @@ const Discounts = ({ products, vouchersProperties }: Props) => {
       <div className={styles.summedPrices}>
         <div className={styles.subtotal}>
           <p>Subtotal</p>
-          <span>${sumTotalPrice(products)}</span>
+          <span>${(sumTotalPrice(products)).toFixed(2)}</span>
         </div>
         <div className={styles.allDiscounts}>
           <p>All your discounts</p>
@@ -75,7 +75,7 @@ const Discounts = ({ products, vouchersProperties }: Props) => {
         <div className={styles.grandTotal}>
           <p>Grand total</p>
           <span>
-            ${(parseFloat(sumTotalPrice(products)) - promotions).toFixed(2)}
+            ${(sumTotalPrice(products) - promotions).toFixed(2)}
           </span>
         </div>
       </div>
