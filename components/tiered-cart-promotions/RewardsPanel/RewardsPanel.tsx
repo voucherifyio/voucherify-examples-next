@@ -16,10 +16,10 @@ const RewardsPanel = ({ vouchersProperties, currentProducts }: Props) => {
   ];
 
   const progressTiers = [
-    { progressTier: "0", dist: "0" },
-    { progressTier: "100", dist: "79" },
-    { progressTier: "250", dist: "192" },
-    { progressTier: "500", dist: "365" },
+    { progressTier: 0, dist: 0 },
+    { progressTier: 100, dist: 79 },
+    { progressTier: 250, dist: 192 },
+    { progressTier: 500, dist: 365 },
   ];
 
   return (
