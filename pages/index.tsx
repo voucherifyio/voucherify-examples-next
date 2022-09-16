@@ -1,10 +1,31 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import { MetaProperties } from "../components/MetaProperties/Meta";
 import styles from "../styles/WelcomeScreen.module.css";
 
 const WelcomeScreen: NextPage = () => {
+
+  const checkCredentials = async () => {
+    const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/api/checkCredentials`, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    });
+    const data = await response.json();
+    if (response.status === 401) {
+      throw new Error(data.error)
+    }
+    throw new Error(data.error)
+  };
+
+  useEffect(() => {
+    checkCredentials();
+  }, []);
+
   return (
     <>
       <MetaProperties />
