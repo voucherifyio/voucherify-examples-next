@@ -9,7 +9,9 @@
 Voucherify is an API-centric promotion engine for digital teams. It empowers marketers to quickly launch and efficiently manage promotions personalized with customer and session data, including coupons, gift cards, in-cart promotions, giveaways, referral, and loyalty programs.
 
 ## Voucherify Examples <a id="voucherify-examples"></a>
-Voucherify Examples are examples of integration and use of the Voucherify product.
+Voucherify Examples are examples of integration and use of the Voucherify product.<br>
+
+```These examples were built with Next.js and our JS SDK on the server side and Next.js + Typescript on the front.```
 
 * [Voucher code redemption](https://github.com/voucherifyio/voucherify-examples-next/tree/main/pages/voucher-code-redemption)
 * [Stacking promotions](https://github.com/voucherifyio/voucherify-examples-next/tree/main/pages/stacking-promotions)
@@ -24,8 +26,6 @@ Check out all our examples in one place!
 Before you run these examples locally, let's check how to start with Voucherify API and dashboard by redeeming your first coupon code by going to [Quickstart](https://docs.voucherify.io/docs/quickstart). This information will help you understand basic Voucherify concepts.
 
 ## How to run Voucherify samples locally? <a id="voucherify-locally"></a>
-
-These samples are built with Next.js and our [JS SDK](https://github.com/voucherifyio/voucherify-js-sdk) on the server side and React + Typescript on the front.
 
 Follow the steps below to run locally.
 
