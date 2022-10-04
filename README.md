@@ -11,7 +11,7 @@ Voucherify is an API-centric promotion engine for digital teams. It empowers mar
 ## Voucherify Examples <a id="voucherify-examples"></a>
 Voucherify Examples are examples of integration and use of the Voucherify product.<br>
 
-```These examples were built with Next.js and our JS SDK on the server side and Next.js + Typescript on the front.```
+```These examples were built with Next.js and our``` [JS SDK](https://github.com/voucherifyio/voucherify-js-sdk) ```on the server side and Next.js + Typescript on the front.```
 
 * [Voucher code redemption](https://github.com/voucherifyio/voucherify-examples-next/tree/main/pages/voucher-code-redemption)
 * [Stacking promotions](https://github.com/voucherifyio/voucherify-examples-next/tree/main/pages/stacking-promotions)
