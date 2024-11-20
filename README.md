@@ -64,5 +64,5 @@ If you have questions, comments, or need help with code, we’re here to help:
 For more tutorials and full API reference, visit our [Developer Hub](https://docs.voucherify.io).
 
 ## Authors
-[@patricioo1](https://github.com/patricioo1)
+[@patryksmolarz](https://github.com/patryksmolarz)
 
